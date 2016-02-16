@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="date_from" class="java.util.Date"/>
+	<parameter name="date_to" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select 
+ ri.receipt_id 
+,ri.product_name 
+,ri.unit_price 
+,ri.qty
+,ri.type_name
+,r.receipt_date
+,ri.description
+from "+MyDB.getNames()+".receipts r
+join "+MyDB.getNames()+".receipt_items ri
+on r.or_number=ri.receipt_id
+where date(r.receipt_date)between date($P{date_from})
+and date($P{date_to});]]>
+	</queryString>
+	<field name="receipt_id" class="java.lang.Integer"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="unit_price" class="java.lang.Double"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="type_name" class="java.lang.String"/>
+	<field name="receipt_date" class="java.sql.Timestamp"/>
+	<field name="description" class="java.lang.String"/>
+	<group name="type">
+		<groupExpression><![CDATA[$F{type_name}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement x="0" y="30" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[PRODUCT NME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="100" y="30" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[UNIT PRICE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="200" y="30" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[QTY]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="100" y="0" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{type_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[TYPE:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="300" y="30" width="100" height="20"/>
+					<textElement/>
+					<text><![CDATA[TIME]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="200" y="0" width="174" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAILY SALES REPORT   as of]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="188" y="40" width="100" height="20"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$P{date_from}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="288" y="40" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{date_to}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{unit_price}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h:mm a">
+				<reportElement x="300" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{receipt_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

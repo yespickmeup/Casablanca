@@ -1,0 +1,550 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package POS.dlg2;
+
+import POS.utl.TableUtility;
+import POS.category_types.S1_categories;
+import POS_svc4.S1_update_category;
+import POS_to4.to_name;
+import com.jgoodies.binding.adapter.AbstractTableAdapter;
+import com.jgoodies.binding.list.ArrayListModel;
+import com.lowagie.text.Font;
+import java.awt.Dimension;
+import java.awt.Window;
+import java.util.List;
+import java.util.logging.Level;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import org.jdesktop.swingx.combobox.ListComboBoxModel;
+import POS.utl.Center;
+import mijzcx.synapse.desk.utils.CloseDialog;
+import mijzcx.synapse.desk.utils.TableWidthUtilities;
+
+/**
+ *
+ * @author Dummy
+ */
+public class Dlg_type extends javax.swing.JDialog {
+
+    /**
+     * Creates new form Dlg_category
+     */
+    //<editor-fold defaultstate="collapsed" desc=" callback ">
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+
+
+
+
+    }
+
+    public static interface Callback {
+
+        void ok(CloseDialog closeDialog, OutputData data);
+    }
+
+    public static class InputData {
+    }
+
+    public static class OutputData {
+    }
+
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc=" Constructors ">
+    private Dlg_type(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    private Dlg_type(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    public Dlg_type() {
+        super();
+        initComponents();
+        myInit();
+
+    }
+    private Dlg_type myRef;
+
+    private void setThisRef(Dlg_type myRef) {
+        this.myRef = myRef;
+    }
+    private static java.util.Map<Object, Dlg_type> dialogContainer = new java.util.HashMap();
+
+    public static void clearUpFirst(java.awt.Window parent) {
+        if (dialogContainer.containsKey(parent)) {
+            dialogContainer.remove(parent);
+        }
+    }
+
+    public static Dlg_type create(java.awt.Window parent, boolean modal) {
+
+        if (modal) {
+            return create(parent, ModalityType.APPLICATION_MODAL);
+        }
+
+        return create(parent, ModalityType.MODELESS);
+
+    }
+
+    public static Dlg_type create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
+
+        if (parent instanceof java.awt.Frame) {
+
+            Dlg_type dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_type((java.awt.Frame) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        if (parent instanceof java.awt.Dialog) {
+            Dlg_type dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_type((java.awt.Dialog) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        return null;
+
+    }
+    //</editor-fold>    
+
+    //<editor-fold defaultstate="collapsed" desc=" main ">
+    public static void main(String args[]) {
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Dlg_type dialog = Dlg_type.create(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" added ">
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible == true) {
+            getContentPane().removeAll();
+            initComponents();
+            myInit();
+            repaint();
+        }
+
+
+    }
+
+    public javax.swing.JPanel getSurface() {
+        return (javax.swing.JPanel) getContentPane();
+    }
+
+    public void nullify() {
+        myRef.setVisible(false);
+        myRef = null;
+    }
+    //</editor-fold>
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_cat = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        cb_category = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        ds_title = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(159, 207, 243));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbl_cat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "NAME"
+            }
+        ));
+        jScrollPane1.setViewportView(tbl_cat);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 155, 490, 390));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/delete-minus.png"))); // NOI18N
+        jButton1.setText("DELETE");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, 120, 40));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/add32x32.png"))); // NOI18N
+        jButton2.setText("ADD");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 120, 40));
+
+        cb_category.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        cb_category.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_categoryActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cb_category, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 490, 40));
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Select Category:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, -1, -1));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/edit-pencil.png"))); // NOI18N
+        jButton3.setText("EDIT");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 120, 40));
+
+        jPanel3.setBackground(java.awt.Color.white);
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        ds_title.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        ds_title.setForeground(new java.awt.Color(41, 9, 149));
+        ds_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ds_title.setText("TYPE");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ds_title, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(ds_title)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 660, 60));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close32x32.png"))); // NOI18N
+        jButton5.setText("CLOSE");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 505, 120, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 565, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        add();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void cb_categoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_categoryActionPerformed
+        // TODO add your handling code here:
+        data_employee();
+    }//GEN-LAST:event_cb_categoryActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        do_delete_category();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        edit_category();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton5ActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cb_category;
+    private javax.swing.JLabel ds_title;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbl_cat;
+    // End of variables declaration//GEN-END:variables
+
+    private void myInit() {
+        cb_model();
+        init_tbl_baptism();
+        data_employee();
+    }
+
+    private void disposed() {
+    }
+
+    public void do_pass(String name) {
+        cb_category.setSelectedItem(name);
+    }
+
+    private void cb_model() {
+        cb_category.setModel(new ListComboBoxModel(S1_categories.ret_categories_for_cb()));
+    }
+    private ArrayListModel tbl_employee_payroll_ALM;
+    private TblInvoicesModel tbl_employee_payroll_M;
+////    
+
+    private void init_tbl_baptism() {
+        tbl_employee_payroll_ALM = new ArrayListModel();
+        tbl_employee_payroll_M = new TblInvoicesModel(tbl_employee_payroll_ALM);
+
+        tbl_cat.getTableHeader().setPreferredSize(new Dimension(100, 30));
+        tbl_cat.setModel(tbl_employee_payroll_M);
+        tbl_cat.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tbl_cat.setRowHeight(25);
+
+//        tbl_cat.setAutoResizeMode(0);
+        int[] tbl_widths_accounts = {400, 0};
+
+        for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
+            if (i == 0) {
+                continue;
+            }
+            TableWidthUtilities.setColumnWidth(tbl_cat, i, tbl_widths_accounts[i]);
+//          TableWidthUtilities.
+//          TableWidthUtilities.
+        }
+
+        TableUtility.align_row_to_Center(tbl_cat, 0);
+        tbl_cat.getTableHeader().setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+        tbl_cat.setRowHeight(35);
+        tbl_cat.setFont(new java.awt.Font("Arial", 1, 12));
+    }
+
+    private void loadData_baptism(List<to_name> acc) {
+        tbl_employee_payroll_ALM.clear();
+        tbl_employee_payroll_ALM.addAll(acc);
+    }
+
+    public static class TblInvoicesModel extends AbstractTableAdapter {
+
+        public static String[] COLUMNS = {
+            "DESCRIPTION", "num"
+        };
+
+        public TblInvoicesModel(ListModel listmodel) {
+            super(listmodel, COLUMNS);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+//           
+//            if (column == 1) {
+//                return true;
+//            }
+
+            return false;
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+
+            return Object.class;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            to_name tt = (to_name) getRow(row);
+
+            switch (col) {
+            case 0:
+                return tt.name;
+
+            default:
+                return tt.num;
+            }
+        }
+    }
+
+    private void data_employee() {
+//        String date = lb_date_baptism.getText();
+//        String name = tf_searc.getText();
+        int row = cb_category.getItemCount();
+        if (row == 0) {
+            return;
+        }
+
+        loadData_baptism(S1_categories.ret_categories2(cb_category.getSelectedItem().toString()));
+    }
+
+    private void add() {
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("Prompt");
+//        nd.pass(date);
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                add_category(data.name);
+                data_employee();
+                ok1();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void ok1() {
+        if (callback != null) {
+            callback.ok(new CloseDialog(this), new OutputData());
+        }
+    }
+
+    private void add_category(String name) {
+        S1_categories.add_type(name, cb_category.getSelectedItem().toString());
+    }
+
+    private void edit_category() {
+
+        int row = tbl_cat.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        final String name = tbl_cat.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_cat.getModel().getValueAt(row, 1).toString();
+
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("Prompt");
+//        nd.pass(date);
+        nd.do_pass(name);
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                do_edit_category(data.name, num);
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void do_edit_category(String name, String num) {
+        S1_update_category.do_edit_type(name, num);
+        data_employee();
+        ok1();
+    }
+
+    private void do_delete_category() {
+        int row = tbl_cat.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        final String name = tbl_cat.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_cat.getModel().getValueAt(row, 1).toString();
+
+        Window p = (Window) this;
+        Dlg_confirm nd = Dlg_confirm.create(p, true);
+        nd.setTitle("");
+//         nd.do_pass("");
+        nd.setCallback(new Dlg_confirm.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm.Data data) {
+                closeDialog.ok();
+                S1_update_category.do_delete_category_type(num);
+                data_employee();
+                ok1();
+
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog) {
+                closeDialog.ok();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+
+    }
+}

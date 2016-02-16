@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.6934217901613327"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[call db_sample.p_get_report( 500 );]]>
+	</queryString>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="est_qty" class="java.lang.Double"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="date_entered" class="java.sql.Timestamp"/>
+	<variable name="total" class="java.lang.Double" resetType="Group" resetGroup="gp1" calculation="Sum">
+		<variableExpression><![CDATA[$V{sales}]]></variableExpression>
+	</variable>
+	<variable name="sales" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{qty}*$F{price}]]></variableExpression>
+	</variable>
+	<group name="gp1">
+		<groupExpression><![CDATA[$F{product_name}]]></groupExpression>
+		<groupHeader>
+			<band height="52">
+				<staticText>
+					<reportElement x="122" y="30" width="100" height="20"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Quantity]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="222" y="30" width="100" height="20"/>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Estimated Quantity]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="322" y="30" width="100" height="20"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Price]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="422" y="30" width="100" height="20"/>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[Sales]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="0" y="10" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{product_name}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="26" width="529" height="1"/>
+				</line>
+				<line>
+					<reportElement x="122" y="44" width="407" height="1"/>
+				</line>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="34">
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="422" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<pen lineStyle="Double"/>
+						<topPen lineWidth="1.25" lineStyle="Solid"/>
+						<leftPen lineStyle="Double"/>
+						<bottomPen lineWidth="1.5" lineStyle="Double"/>
+						<rightPen lineStyle="Double"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{total}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="181" y="31" width="225" height="31"/>
+				<textElement textAlignment="Center">
+					<font size="15"/>
+				</textElement>
+				<text><![CDATA[JP Meatshop Sales Report]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="406" y="0" width="149" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="245" y="59" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[(Address)]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{date_entered}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="10" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="#,###.##">
+				<reportElement x="122" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="222" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{est_qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="322" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="422" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{sales}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="213" y="33" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="293" y="34" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="216" pageHeight="1008" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="b45aa71c-a03e-40c3-b2ad-bb1d0b1dc6e2">
+	<property name="ireport.zoom" value="4.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="cat_name" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="amount" class="java.lang.Double"/>
+	<field name="unit_price" class="java.lang.Double"/>
+	<field name="date_added" class="java.lang.String"/>
+	<variable name="total_all_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+	</variable>
+	<variable name="tots" class="java.lang.Double" resetType="Group" resetGroup="cat_name" calculation="Sum">
+		<variableExpression><![CDATA[$F{qty} * $F{unit_price}]]></variableExpression>
+	</variable>
+	<group name="cat_name">
+		<groupExpression><![CDATA[$F{cat_name}]]></groupExpression>
+		<groupHeader>
+			<band height="12">
+				<textField>
+					<reportElement uuid="cf454559-97d2-4c48-8091-531d2794dc91" x="19" y="0" width="173" height="12"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cat_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<textField pattern="#,##0.00">
+					<reportElement uuid="a6427cee-8475-44dc-b61f-6fd4823214e8" x="139" y="0" width="53" height="12"/>
+					<box>
+						<topPen lineWidth="0.0"/>
+						<bottomPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{tots}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="27c49be8-e047-4c1a-a6ec-76f28b830baa" x="19" y="16" width="173" height="4"/>
+					<box>
+						<pen lineStyle="Dashed"/>
+						<topPen lineWidth="0.5" lineStyle="Dashed"/>
+						<leftPen lineStyle="Dashed"/>
+						<bottomPen lineStyle="Dashed"/>
+						<rightPen lineStyle="Dashed"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="9" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="8f347469-5c7e-4bbb-9289-cb98abcf225e" x="154" y="0" width="38" height="10"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unit_price}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement uuid="13e1e6a1-671d-41cf-b88f-182d05f13d14" x="19" y="0" width="22" height="10"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="62678a9d-2827-4157-96d7-a224356a4c6a" x="41" y="0" width="85" height="10"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="091c90f4-04c7-44fe-84a4-70b0a08b1235" x="125" y="0" width="30" height="10"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+					<paragraph rightIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_added}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="3" splitType="Stretch"/>
+	</summary>
+</jasperReport>

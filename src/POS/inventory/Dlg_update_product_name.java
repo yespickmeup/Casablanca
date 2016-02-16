@@ -1,0 +1,323 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package POS.inventory;
+
+import java.util.logging.Level;
+import mijzcx.synapse.desk.utils.CloseDialog;
+
+/**
+ *
+ * @author Dummy
+ */
+public class Dlg_update_product_name extends javax.swing.JDialog {
+
+    /**
+     * Creates new form Dlg_update_product_price
+     */
+    //<editor-fold defaultstate="collapsed" desc=" callback ">
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+
+
+
+
+    }
+
+    public static interface Callback {
+
+        void ok(CloseDialog closeDialog, OutputData data);
+    }
+
+    public static class InputData {
+    }
+
+    public static class OutputData {
+
+        public final String name;
+        public final String address;
+        public final String contact;
+
+        public OutputData(String name, String address, String contact) {
+            this.name = name;
+            this.address = address;
+            this.contact = contact;
+        }
+    }
+
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc=" Constructors ">
+    private Dlg_update_product_name(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    private Dlg_update_product_name(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    public Dlg_update_product_name() {
+        super();
+        initComponents();
+        myInit();
+
+    }
+    private Dlg_update_product_name myRef;
+
+    private void setThisRef(Dlg_update_product_name myRef) {
+        this.myRef = myRef;
+    }
+    private static java.util.Map<Object, Dlg_update_product_name> dialogContainer = new java.util.HashMap();
+
+    public static void clearUpFirst(java.awt.Window parent) {
+        if (dialogContainer.containsKey(parent)) {
+            dialogContainer.remove(parent);
+        }
+    }
+
+    public static Dlg_update_product_name create(java.awt.Window parent, boolean modal) {
+
+        if (modal) {
+            return create(parent, ModalityType.APPLICATION_MODAL);
+        }
+
+        return create(parent, ModalityType.MODELESS);
+
+    }
+
+    public static Dlg_update_product_name create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
+
+        if (parent instanceof java.awt.Frame) {
+
+            Dlg_update_product_name dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_update_product_name((java.awt.Frame) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        if (parent instanceof java.awt.Dialog) {
+            Dlg_update_product_name dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_update_product_name((java.awt.Dialog) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        return null;
+
+    }
+    //</editor-fold>    
+
+    //<editor-fold defaultstate="collapsed" desc=" main ">
+    public static void main(String args[]) {
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Dlg_update_product_name dialog = Dlg_update_product_name.create(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" added ">
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible == true) {
+            getContentPane().removeAll();
+            initComponents();
+            myInit();
+            repaint();
+        }
+
+
+    }
+
+    public javax.swing.JPanel getSurface() {
+        return (javax.swing.JPanel) getContentPane();
+    }
+
+    public void nullify() {
+        myRef.setVisible(false);
+        myRef = null;
+    }
+    //</editor-fold>
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        tf_n = new javax.swing.JLabel();
+        tf_name = new javax.swing.JTextField();
+        tf_n2 = new javax.swing.JLabel();
+        tf_address = new javax.swing.JTextField();
+        tf_n1 = new javax.swing.JLabel();
+        tf_contact = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(159, 207, 243));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tf_n.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_n.setText("PRODUCT NAME:");
+        jPanel1.add(tf_n, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 130, -1));
+
+        tf_name.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jPanel1.add(tf_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, 513, 41));
+
+        tf_n2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_n2.setText("ADDRESS:");
+        jPanel1.add(tf_n2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, 80, -1));
+
+        tf_address.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jPanel1.add(tf_address, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 90, 513, 37));
+
+        tf_n1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tf_n1.setText("CONTACT #:");
+        jPanel1.add(tf_n1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 90, -1));
+
+        tf_contact.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jPanel1.add(tf_contact, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 513, 37));
+
+        jPanel3.setBackground(java.awt.Color.white);
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close_1.png"))); // NOI18N
+        jButton2.setText("CANCEL");
+        jButton2.setBorderPainted(false);
+        jButton2.setContentAreaFilled(false);
+        jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close-MO_1.png"))); // NOI18N
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/check.png"))); // NOI18N
+        jButton1.setText("OK");
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/check-MO.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(391, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(3, 3, 3))
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 670, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 300));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ok1();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton2ActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTextField tf_address;
+    private javax.swing.JTextField tf_contact;
+    private javax.swing.JLabel tf_n;
+    private javax.swing.JLabel tf_n1;
+    private javax.swing.JLabel tf_n2;
+    private javax.swing.JTextField tf_name;
+    // End of variables declaration//GEN-END:variables
+
+    private void myInit() {
+    }
+
+    public void do_pass(String n, String old_name, String address, String contact) {
+        tf_n.setText(n);
+        tf_name.setText(old_name);
+        tf_address.setText(address);
+        tf_contact.setText(contact);
+    }
+
+    private void ok1() {
+        if (callback != null) {
+            String name = tf_name.getText();
+            String address = tf_address.getText();
+            String contact = tf_contact.getText();
+            tf_name.setText("");
+            tf_address.setText("");
+            tf_contact.setText("");
+            callback.ok(new CloseDialog(this), new OutputData(name, address, contact));
+        }
+    }
+}

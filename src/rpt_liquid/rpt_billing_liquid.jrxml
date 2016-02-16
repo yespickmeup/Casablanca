@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="006a20ca-32d8-4a71-99f8-654db29afdfe">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="busi_name" class="java.lang.String"/>
+	<parameter name="room_rate" class="java.lang.Double"/>
+	<parameter name="accomodation" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rpt_bar_and_resto" class="java.util.List"/>
+	<parameter name="rpt_others" class="java.util.List"/>
+	<parameter name="my_date" class="java.lang.String"/>
+	<parameter name="guest_id" class="java.lang.String"/>
+	<parameter name="table_no" class="java.lang.String"/>
+	<parameter name="check_in" class="java.lang.String"/>
+	<parameter name="transfers" class="java.lang.String"/>
+	<parameter name="accomodation_1" class="java.lang.String"/>
+	<parameter name="accom_total" class="java.lang.Double"/>
+	<parameter name="img_path" class="java.lang.String"/>
+	<parameter name="to_pay" class="java.lang.Double"/>
+	<parameter name="guest_name" class="java.lang.String"/>
+	<parameter name="dollar" class="java.lang.Double"/>
+	<parameter name="total_charges" class="java.lang.Double"/>
+	<parameter name="discount" class="java.lang.Double"/>
+	<group name="rpt_bar_and_resto">
+		<groupExpression><![CDATA[$P{rpt_bar_and_resto}]]></groupExpression>
+		<groupHeader>
+			<band height="23">
+				<subreport runToBottom="false">
+					<reportElement uuid="4f95f1aa-0b57-4c5c-9e55-a6f9136798df" x="71" y="0" width="450" height="23"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{rpt_bar_and_resto}, false);]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rpt_bar_and_resto.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="rpt_others">
+		<groupExpression><![CDATA[$P{rpt_others}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<subreport>
+					<reportElement uuid="42f7b335-9119-427c-aa13-f28179eab44c" x="71" y="0" width="450" height="20"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{rpt_others}, false);]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rpt_others.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="169" splitType="Stretch">
+			<image>
+				<reportElement uuid="a7326976-8e79-4353-b485-0ee5e42205b1" x="421" y="10" width="100" height="50"/>
+				<imageExpression><![CDATA[$P{img_path} +"img_templates\\liquid.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="a4001cea-a828-4135-8557-858968c2e164" x="53" y="10" width="365" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{my_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a4863e2-6fa9-4370-95cd-62f8130567c3" x="196" y="60" width="325" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{guest_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="43c50843-4a5f-4fbf-9b04-8658e67e5380" x="196" y="120" width="222" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{accomodation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cbe7f159-0b99-4c02-bbf4-b60492834a7a" x="53" y="80" width="143" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[DURATION OF STAY:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f3311f7a-1297-472f-81f4-7c06ac7243d9" x="53" y="100" width="143" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[TRANSFERS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="01e05919-e5a9-41ef-91c2-8151e4c0aa42" x="53" y="60" width="143" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[NAME:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="62cf0b36-16b2-4821-9271-f1963cac639d" x="196" y="80" width="325" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{check_in}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8fd111d4-6898-4845-b692-20a4a96632ab" x="53" y="120" width="143" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[ACCOMODATION:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="646212a4-55e4-47c0-aa19-fa475bf76c2f" x="421" y="120" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{accom_total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fd174ba7-39f6-4bf4-abca-b7524824ed76" x="196" y="100" width="100" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{transfers}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band height="198" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6d7ab248-baa2-4c25-bc6f-f057591f8499" x="276" y="81" width="98" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[NET TOTAL:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="7e116d59-c866-429f-b25c-7d18cdddb277" x="401" y="126" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dollar}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="bc14f0fd-7ef3-485b-8fd9-f4afe2462ed0" mode="Transparent" x="401" y="101" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{to_pay}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="540d55a8-b417-4e46-87fa-10e9a31d30c1" x="275" y="11" width="98" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Total Charges:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="578fdeca-e72c-4b65-812e-56d805d25f7f" x="361" y="126" width="37" height="21"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[USD:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="de201541-2e21-40b6-9e7a-fdf8df73ae2b" x="362" y="101" width="36" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Php:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="540d55a8-b417-4e46-87fa-10e9a31d30c1" x="275" y="31" width="98" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Accomodation:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="646212a4-55e4-47c0-aa19-fa475bf76c2f" x="398" y="31" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{accom_total}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="646212a4-55e4-47c0-aa19-fa475bf76c2f" x="398" y="11" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{total_charges}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="540d55a8-b417-4e46-87fa-10e9a31d30c1" x="275" y="51" width="98" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Discount:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="646212a4-55e4-47c0-aa19-fa475bf76c2f" x="398" y="51" width="100" height="20"/>
+				<box>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{discount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8fd111d4-6898-4845-b692-20a4a96632ab" x="374" y="31" width="23" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8fd111d4-6898-4845-b692-20a4a96632ab" x="374" y="51" width="23" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="578fdeca-e72c-4b65-812e-56d805d25f7f" x="397" y="147" width="56" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[exchange:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="7e116d59-c866-429f-b25c-7d18cdddb277" x="453" y="148" width="48" height="20"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{to_pay}/$P{dollar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

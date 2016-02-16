@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="my_date" class="java.lang.String"/>
+	<parameter name="guest_id" class="java.lang.String"/>
+	<parameter name="table_no" class="java.lang.String"/>
+	<parameter name="check_in" class="java.lang.String"/>
+	<parameter name="transfers" class="java.lang.String"/>
+	<parameter name="accomodation" class="java.lang.String"/>
+	<parameter name="accom_total" class="java.lang.Double"/>
+	<parameter name="img_path" class="java.lang.String"/>
+	<parameter name="to_pay" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[select
+  id 
+ ,table_no_id
+ ,or_no 
+ ,qty
+ ,product_name
+ ,description
+ ,price
+ ,img_path
+ ,status
+ ,guest_id 
+ ,guest_name  
+ ,case cat_id
+	when '1' then 'DIVING'
+ 	when '2' then 'DIVING'
+ 	when '3' then 'DIVING'
+ 	when '4' then 'DIVING'
+	when '6' then 'DIVING'
+	when '5' then 'EXTRAS'
+ 	when '7' then 'EXTRAS'
+ 	when '8' then 'EXTRAS'
+	when '8' then 'EXTRAS'
+	when '6' then 'EXTRAS'
+	when '11' then 'EXTRAS'
+        	when '10' then 'BAR AND RESTAURANT'
+    end as cat_id
+ ,date_added
+
+from db_pos_restaurant.customer_tables_details
+where table_no_id=$P{table_no} and status ='0' ORDER by cat_id asc;]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="table_no_id" class="java.lang.String"/>
+	<field name="or_no" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="img_path" class="java.lang.String"/>
+	<field name="status" class="java.lang.Integer"/>
+	<field name="guest_id" class="java.lang.String"/>
+	<field name="guest_name" class="java.lang.String"/>
+	<field name="cat_id" class="java.lang.String"/>
+	<field name="date_added" class="java.sql.Timestamp"/>
+	<variable name="tor" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[$F{qty} *$F{price}]]></variableExpression>
+	</variable>
+	<variable name="dollar" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$P{to_pay}/40.5]]></variableExpression>
+	</variable>
+	<variable name="peso" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$P{to_pay}]]></variableExpression>
+	</variable>
+	<variable name="aw" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{to_pay} / 40.5]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="36" y="0" width="365" height="50"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{my_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="36" y="0" width="68" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[WAITER:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="36" y="23" width="36" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[QTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="72" y="23" width="233" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DESCIPTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="305" y="23" width="96" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PRICE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="401" y="23" width="103" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="104" y="0" width="148" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{transfers}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="356" y="0" width="68" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[TABLE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="424" y="0" width="80" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{accomodation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="72" y="0" width="233" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+				<reportElement x="401" y="0" width="103" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{tor}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement x="36" y="0" width="36" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="305" y="0" width="96" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="324" y="14" width="53" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="324" y="34" width="53" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="404" y="34" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{peso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="377" y="34" width="27" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Php]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="14" width="27" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[US]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="404" y="14" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{aw}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

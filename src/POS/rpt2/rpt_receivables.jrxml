@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="date_from" class="java.util.Date"/>
+	<parameter name="busi_name" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[
+select
+c.cashier_id
+,c.customer_id
+,c.product_id
+,c.qty
+,c.price
+,c.date_added
+
+,o.member_name
+
+,s.description
+from "+MyDB.getNames()+".member_charges c
+join "+MyDB.getNames()+".customers o
+on c.customer_id= o.id
+join "+MyDB.getNames()+".inventory2_stocks_left s
+on c.product_id =s.id
+
+where c.is_payed='no']]>
+	</queryString>
+	<field name="cashier_id" class="java.lang.Integer"/>
+	<field name="customer_id" class="java.lang.Integer"/>
+	<field name="product_id" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="price" class="java.lang.Double"/>
+	<field name="date_added" class="java.sql.Timestamp"/>
+	<field name="member_name" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<variable name="amount" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{qty}*$F{price}]]></variableExpression>
+	</variable>
+	<variable name="tot" class="java.lang.Double" resetType="Group" resetGroup="custom" calculation="Sum">
+		<variableExpression><![CDATA[$V{amount}]]></variableExpression>
+	</variable>
+	<variable name="total" class="java.lang.Double" incrementType="Group" incrementGroup="custom" calculation="Sum">
+		<variableExpression><![CDATA[$V{tot}]]></variableExpression>
+	</variable>
+	<group name="custom">
+		<groupExpression><![CDATA[$F{customer_id}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<staticText>
+					<reportElement x="211" y="30" width="54" height="20"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[QTY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="270" y="30" width="56" height="20"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[PRICE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="331" y="30" width="100" height="20"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[DATE ADDED]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="0" width="41" height="20"/>
+					<textElement/>
+					<text><![CDATA[NAME:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="30" width="200" height="20"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[PRODUCT NAME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="437" y="30" width="100" height="20"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[AMOUNT]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="45" y="0" width="230" height="20"/>
+					<textElement>
+						<font size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{member_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="437" y="5" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box>
+						<topPen lineWidth="2.0" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+						<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+						<paragraph lineSpacing="Single"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{tot}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="99" splitType="Stretch">
+			<textField>
+				<reportElement x="104" y="0" width="355" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{busi_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="204" y="37" width="174" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEIVABLES]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="251" y="63" width="86" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{date_from}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="204" y="63" width="37" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DATE:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="211" y="0" width="54" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="56" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement x="331" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{date_added}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="0" width="200" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="437" y="0" width="100" height="20" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="76" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement x="437" y="0" width="100" height="20"/>
+				<box>
+					<topPen lineWidth="2.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

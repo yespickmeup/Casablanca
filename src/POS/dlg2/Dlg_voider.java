@@ -1,0 +1,715 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package POS.dlg2;
+
+import POS.svc.S2_ret_user_details;
+import POS.svc3.S7_select_receipts;
+import POS.svc3.S8_void_trans;
+import POS.to2.to_receipts;
+import POS.utl.NumType;
+import com.jgoodies.binding.adapter.AbstractTableAdapter;
+import com.jgoodies.binding.list.ArrayListModel;
+import com.lowagie.text.Font;
+import java.text.DecimalFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import org.jdesktop.swingx.combobox.ListComboBoxModel;
+
+import mijzcx.synapse.desk.utils.CloseDialog;
+import mijzcx.synapse.desk.utils.TableWidthUtilities;
+
+/**
+ *
+ * @author Dummy
+ */
+public class Dlg_voider extends javax.swing.JDialog {
+
+    /**
+     * Creates new form Dlg_voider
+     */
+    //<editor-fold defaultstate="collapsed" desc=" callback ">
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+
+
+
+
+    }
+
+    public static interface Callback {
+
+        void ok(CloseDialog closeDialog, OutputData data);
+    }
+
+    public static class InputData {
+    }
+
+    public static class OutputData {
+    }
+
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc=" Constructors ">
+    private Dlg_voider(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    private Dlg_voider(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    public Dlg_voider() {
+        super();
+        initComponents();
+        myInit();
+
+    }
+    private Dlg_voider myRef;
+
+    private void setThisRef(Dlg_voider myRef) {
+        this.myRef = myRef;
+    }
+    private static java.util.Map<Object, Dlg_voider> dialogContainer = new java.util.HashMap();
+
+    public static void clearUpFirst(java.awt.Window parent) {
+        if (dialogContainer.containsKey(parent)) {
+            dialogContainer.remove(parent);
+        }
+    }
+
+    public static Dlg_voider create(java.awt.Window parent, boolean modal) {
+
+        if (modal) {
+            return create(parent, ModalityType.APPLICATION_MODAL);
+        }
+
+        return create(parent, ModalityType.MODELESS);
+
+    }
+
+    public static Dlg_voider create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
+
+        if (parent instanceof java.awt.Frame) {
+
+            Dlg_voider dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_voider((java.awt.Frame) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        if (parent instanceof java.awt.Dialog) {
+            Dlg_voider dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_voider((java.awt.Dialog) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        return null;
+
+    }
+    //</editor-fold>    
+
+    //<editor-fold defaultstate="collapsed" desc=" main ">
+    public static void main(String args[]) {
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Dlg_voider dialog = Dlg_voider.create(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" added ">
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible == true) {
+            getContentPane().removeAll();
+            initComponents();
+            myInit();
+            repaint();
+        }
+
+
+    }
+
+    public javax.swing.JPanel getSurface() {
+        return (javax.swing.JPanel) getContentPane();
+    }
+
+    public void nullify() {
+        myRef.setVisible(false);
+        myRef = null;
+    }
+    //</editor-fold>
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        pnl_cover = new javax.swing.JPanel();
+        dp_date = new com.toedter.calendar.JDateChooser();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_receipts = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_receipt_items = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cb_cashiers = new javax.swing.JComboBox();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        ds_title1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        pnl_cover.setBackground(new java.awt.Color(159, 207, 243));
+
+        dp_date.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        dp_date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dp_datePropertyChange(evt);
+            }
+        });
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tbl_receipts.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "TRANS #", "DATE", "TENDERED"
+            }
+        ));
+        tbl_receipts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_receiptsMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tbl_receipts);
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        tbl_receipt_items.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "DESCRIPTION", "UNIT PRICE", "QTY"
+            }
+        ));
+        jScrollPane1.setViewportView(tbl_receipt_items);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("CHOOSE DATE:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("CASHIER:");
+
+        cb_cashiers.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cb_cashiers.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_cashiersActionPerformed(evt);
+            }
+        });
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/delete-minus.png"))); // NOI18N
+        jButton4.setText("VOID");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/delete-minus.png"))); // NOI18N
+        jButton6.setText("VOID");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        jPanel4.setBackground(java.awt.Color.white);
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        ds_title1.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        ds_title1.setForeground(new java.awt.Color(41, 9, 149));
+        ds_title1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ds_title1.setText("VOIDER");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ds_title1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ds_title1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBackground(java.awt.Color.white);
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setFocusable(false);
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close_1.png"))); // NOI18N
+        jButton1.setText("CLOSE");
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close-MO_1.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 7, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout pnl_coverLayout = new javax.swing.GroupLayout(pnl_cover);
+        pnl_cover.setLayout(pnl_coverLayout);
+        pnl_coverLayout.setHorizontalGroup(
+            pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnl_coverLayout.createSequentialGroup()
+                .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnl_coverLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnl_coverLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(3, 3, 3))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnl_coverLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cb_cashiers, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dp_date, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnl_coverLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(29, Short.MAX_VALUE))
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        pnl_coverLayout.setVerticalGroup(
+            pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnl_coverLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dp_date, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_cashiers, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnl_coverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+        );
+
+        getContentPane().add(pnl_cover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1160, 670));
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void cb_cashiersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_cashiersActionPerformed
+        // TODO add your handling code here:
+        data_employee();
+//        data_items();
+        tbl_items_ALM.clear();
+        tbl_items_M.fireTableDataChanged();
+    }//GEN-LAST:event_cb_cashiersActionPerformed
+
+    private void tbl_receiptsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_receiptsMouseClicked
+        // TODO add your handling code here:
+        data_items();
+    }//GEN-LAST:event_tbl_receiptsMouseClicked
+
+    private void dp_datePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dp_datePropertyChange
+        // TODO add your handling code here:
+        data_employee();
+//        data_items();
+//        tbl_items_ALM.clear();
+//        tbl_items_M.fireTableDataChanged();
+
+    }//GEN-LAST:event_dp_datePropertyChange
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        void_receipt();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        void_receipt_items();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cb_cashiers;
+    private com.toedter.calendar.JDateChooser dp_date;
+    private javax.swing.JLabel ds_title1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel pnl_cover;
+    private javax.swing.JTable tbl_receipt_items;
+    private javax.swing.JTable tbl_receipts;
+    // End of variables declaration//GEN-END:variables
+
+    private void myInit() {
+        init_date();
+        init_cashiers();
+
+        init_tbl_baptism();
+        data_employee();
+
+        init_tbl_items();
+        data_items();
+    }
+
+    private void init_date() {
+        dp_date.setDate(new Date());
+    }
+
+    private void init_cashiers() {
+        cb_cashiers.setModel(new ListComboBoxModel(S2_ret_user_details.get_cashiers()));
+    }
+    private ArrayListModel tbl_employee_payroll_ALM;
+    private TblInvoicesModel tbl_employee_payroll_M;
+////    
+
+    private void init_tbl_baptism() {
+        tbl_employee_payroll_ALM = new ArrayListModel();
+        tbl_employee_payroll_M = new TblInvoicesModel(tbl_employee_payroll_ALM);
+
+
+        tbl_receipts.setModel(tbl_employee_payroll_M);
+        tbl_receipts.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tbl_receipts.setRowHeight(25);
+
+//        tbl_receipts.setAutoResizeMode(0);
+        int[] tbl_widths_accounts = {50, 200, 150,100,100};
+
+        for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
+            if(i==0)continue;
+            TableWidthUtilities.setColumnWidth(tbl_receipts, i, tbl_widths_accounts[i]);
+//          TableWidthUtilities.
+//          TableWidthUtilities.
+        }
+
+        tbl_receipts.getTableHeader().setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+        tbl_receipts.setRowHeight(35);
+        tbl_receipts.setFont(new java.awt.Font("Arial", 1, 12));
+    }
+
+    private void loadData_baptism(List<to_receipts> acc) {
+        tbl_employee_payroll_ALM.clear();
+        tbl_employee_payroll_ALM.addAll(acc);
+    }
+
+    public static class TblInvoicesModel extends AbstractTableAdapter {
+
+        public static String[] COLUMNS = {
+            "OR#", "Date", "Tendered","Discount","Amount"
+        };
+
+        public TblInvoicesModel(ListModel listmodel) {
+            super(listmodel, COLUMNS);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+//           
+//            if (column == 1) {
+//                return true;
+//            }
+
+            return false;
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+
+            return Object.class;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            to_receipts tt = (to_receipts) getRow(row);
+
+            switch (col) {
+                case 0:
+                    return tt.trans_number;
+                case 1:
+                    return tt.trans_date;
+                case 2:
+                    return NumType.with_comma(Double.parseDouble(tt.tendered));
+                    
+                case 3:
+                    return NumType.with_comma(Double.parseDouble(tt.discount));
+
+                default:
+                    return NumType.with_comma(tt.amount);
+            }
+        }
+    }
+
+    private void data_employee() {
+        int row = cb_cashiers.getItemCount();
+        if (row == 0) {
+            return;
+        }
+        String name = cb_cashiers.getSelectedItem().toString();
+
+//        String date = lb_date_baptism.getText();
+//        String name = tf_searc.getText();
+        loadData_baptism(S7_select_receipts.get_receipts(name, dp_date.getDate()));
+    }
+    private ArrayListModel tbl_items_ALM;
+    private TblITEMSModel tbl_items_M;
+////    
+
+    private void init_tbl_items() {
+        tbl_items_ALM = new ArrayListModel();
+        tbl_items_M = new TblITEMSModel(tbl_items_ALM);
+
+
+        tbl_receipt_items.setModel(tbl_items_M);
+        tbl_receipt_items.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tbl_receipt_items.setRowHeight(25);
+
+        tbl_receipt_items.setAutoResizeMode(0);
+        int[] tbl_widths_accounts = {200, 100, 100, 100, 0, 0};
+
+        for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
+            TableWidthUtilities.setColumnWidth(tbl_receipt_items, i, tbl_widths_accounts[i]);
+//          TableWidthUtilities.
+//          TableWidthUtilities.
+        }
+
+        tbl_receipt_items.getTableHeader().setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+        tbl_receipt_items.setRowHeight(35);
+        tbl_receipt_items.setFont(new java.awt.Font("Arial", 1, 12));
+    }
+
+    private void loadData_items(List<to_receipts.aw> acc) {
+        tbl_items_ALM.clear();
+        tbl_items_ALM.addAll(acc);
+    }
+
+    public static class TblITEMSModel extends AbstractTableAdapter {
+
+        public static String[] COLUMNS = {
+            "NAME", "PRICE", "QTY", "Amount", "id", "prod num"
+        };
+
+        public TblITEMSModel(ListModel listmodel) {
+            super(listmodel, COLUMNS);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+//           
+//            if (column == 1) {
+//                return true;
+//            }
+
+            return false;
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+
+            return Object.class;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            to_receipts.aw tt = (to_receipts.aw) getRow(row);
+
+            switch (col) {
+                case 0:
+                    return tt.name;
+                case 1:
+                    return tt.price;
+                case 2:
+                    return df.format(tt.qty);
+                case 3:
+                    return df1.format(tt.amount);
+
+                case 4:
+                    return tt.id;
+                default:
+                    return tt.prod_num;
+            }
+        }
+    }
+    
+    
+    static DecimalFormat df = new DecimalFormat("#");
+    static DecimalFormat df1 = new DecimalFormat("#,###.00");
+
+    private void data_items() {
+//        String date = lb_date_baptism.getText();
+        int row = tbl_receipts.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String num = tbl_receipts.getModel().getValueAt(row, 0).toString();
+
+
+//        String date = lb_date_baptism.getText();
+//        String name = tf_searc.getText();
+
+        loadData_items(S7_select_receipts.ret_items(num));
+    }
+
+    private void void_receipt() {
+
+        int row = tbl_receipts.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String num = tbl_receipts.getModel().getValueAt(row, 0).toString();
+
+        S8_void_trans.void_receipt2(num,tbl_items_ALM);
+        tbl_items_ALM.clear();
+        tbl_items_M.fireTableDataChanged();
+        data_employee();
+        ok1();
+    }
+
+    private void double_check() {
+        if (tbl_items_ALM.isEmpty()) {
+            int row = tbl_receipts.getSelectedRow();
+            if (row < 0) {
+                return;
+            }
+            String num = tbl_receipts.getModel().getValueAt(row, 0).toString();
+            S8_void_trans.void_receipt(num);
+            data_employee();
+            ok1();
+        }
+    }
+
+    private void void_receipt_items() {
+        int row = tbl_receipt_items.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        String num = tbl_receipt_items.getModel().getValueAt(row, 4).toString();
+        String prod_num = tbl_receipt_items.getModel().getValueAt(row, 5).toString();
+        String prod_name = tbl_receipt_items.getModel().getValueAt(row, 0).toString();
+        String qty = tbl_receipt_items.getModel().getValueAt(row, 2).toString();
+         String price = tbl_receipt_items.getModel().getValueAt(row, 1).toString();
+//        JOptionPane.showMessageDialog(null, num);
+        S8_void_trans.void_receipt_items(num, prod_num, prod_name, qty,price);
+        data_items();
+        double_check();
+        ok1();
+    }
+
+    private void ok1() {
+        if (callback != null) {
+            callback.ok(new CloseDialog(this), new OutputData());
+        }
+    }
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperPrint xmlns="http://jasperreports.sourceforge.net/jasperreports/print" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/print http://jasperreports.sourceforge.net/xsd/jasperprint.xsd" name="report name" pageWidth="595" pageHeight="842" topMargin="20" leftMargin="20" bottomMargin="20" rightMargin="20" locale="en_US" timezone="Asia/Shanghai">
+	<property name="net.sf.jasperreports.export.xml.start.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.end.page.index" value="0"/>
+	<property name="net.sf.jasperreports.export.xml.page.count" value="1"/>
+	<origin band="background"/>
+	<origin band="title"/>
+	<origin band="pageHeader"/>
+	<origin band="columnHeader"/>
+	<origin band="detail"/>
+	<origin band="columnFooter"/>
+	<origin band="pageFooter"/>
+	<page>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="20" y="128" width="132" height="13" origin="4" srcId="1"/>
+			<font size="8"/>
+			<textContent><![CDATA[2]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="20" y="78" width="132" height="13" origin="4" srcId="2"/>
+			<font size="8"/>
+			<textContent><![CDATA[Austrian Breakfast]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" lineSpacingFactor="1.2578125" leadingOffset="-2.524414" valueClass="java.lang.Double" pattern="P #,###.00">
+			<reportElement x="20" y="141" width="132" height="13" origin="4" srcId="3"/>
+			<font size="10"/>
+			<textContent><![CDATA[P 195.00]]></textContent>
+		</text>
+		<image scaleImage="RetainShape">
+			<reportElement x="20" y="91" width="132" height="37" origin="4" srcId="4"/>
+			<imageSource isEmbedded="true">
+				<![CDATA[iVBORw0KGgoAAAANSUhEUgAAAEwAAAAyCAYAAAD2vz2aAAAAcUlEQVR42u3QMQoAMAgEsPv/p1s6
+dHET6dQIDh4omCRZp2vV/M7dvHtvuv/6nwADBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwY
+MGDAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAH7C2wDNZijO7J4z9sAAAAASUVORK5CYII=]]>
+			</imageSource>
+		</image>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="20" y="66" width="132" height="13" origin="4" srcId="5"/>
+			<font size="8"/>
+			<textContent><![CDATA[Synapse Software Technologies]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="158" y="128" width="132" height="13" origin="4" srcId="1"/>
+			<font size="8"/>
+			<textContent><![CDATA[3]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="158" y="78" width="132" height="13" origin="4" srcId="2"/>
+			<font size="8"/>
+			<textContent><![CDATA[Billionaire's Breakfast (L)]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" lineSpacingFactor="1.2578125" leadingOffset="-2.524414" valueClass="java.lang.Double" pattern="P #,###.00">
+			<reportElement x="158" y="141" width="132" height="13" origin="4" srcId="3"/>
+			<font size="10"/>
+			<textContent><![CDATA[P 755.00]]></textContent>
+		</text>
+		<image scaleImage="RetainShape">
+			<reportElement x="158" y="91" width="132" height="37" origin="4" srcId="4"/>
+			<imageSource isEmbedded="true">
+				<![CDATA[iVBORw0KGgoAAAANSUhEUgAAAEwAAAAyCAYAAAD2vz2aAAAAc0lEQVR42u3QOQoAMAgEwP3/pxNS
+pLHJQbqMYOGCgpMkbXStms/5NL/dX93ZnV//E2DAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDA
+gAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGB/gXWBt6M7GcP53AAAAABJRU5ErkJggg==]]>
+			</imageSource>
+		</image>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="158" y="66" width="132" height="13" origin="4" srcId="5"/>
+			<font size="8"/>
+			<textContent><![CDATA[Synapse Software Technologies]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="296" y="128" width="132" height="13" origin="4" srcId="1"/>
+			<font size="8"/>
+			<textContent><![CDATA[5]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="296" y="78" width="132" height="13" origin="4" srcId="2"/>
+			<font size="8"/>
+			<textContent><![CDATA[Breakfast Buffet]]></textContent>
+		</text>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="12.578125" lineSpacingFactor="1.2578125" leadingOffset="-2.524414" valueClass="java.lang.Double" pattern="P #,###.00">
+			<reportElement x="296" y="141" width="132" height="13" origin="4" srcId="3"/>
+			<font size="10"/>
+			<textContent><![CDATA[P 380.00]]></textContent>
+		</text>
+		<image scaleImage="RetainShape">
+			<reportElement x="296" y="91" width="132" height="37" origin="4" srcId="4"/>
+			<imageSource isEmbedded="true">
+				<![CDATA[iVBORw0KGgoAAAANSUhEUgAAAEwAAAAyCAYAAAD2vz2aAAAAc0lEQVR42u3QsQoAIAgFwPf/P100
+tDhljZ3g4EMEL0nG6lo133M37+7d3j299/pPgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAED
+BgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgAEDBgwYMGDAgP0FNgEwFKM7US9oUQAAAABJRU5ErkJggg==]]>
+			</imageSource>
+		</image>
+		<text textAlignment="Center" verticalAlignment="Middle" textHeight="10.0625" lineSpacingFactor="1.2578125" leadingOffset="-2.0195312">
+			<reportElement x="296" y="66" width="132" height="13" origin="4" srcId="5"/>
+			<font size="8"/>
+			<textContent><![CDATA[Synapse Software Technologies]]></textContent>
+		</text>
+	</page>
+</jasperPrint>

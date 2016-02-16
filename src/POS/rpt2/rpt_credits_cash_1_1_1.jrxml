@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="576" pageHeight="792" columnWidth="576" leftMargin="0" rightMargin="0" topMargin="14" bottomMargin="0" uuid="789f7a2a-f6a8-47d6-90c9-fb0b2b2a6486">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="date_from" class="java.util.Date"/>
+	<parameter name="date_to" class="java.util.Date"/>
+	<parameter name="busi_name" class="java.lang.String"/>
+	<parameter name="mydb" class="java.lang.String"/>
+	<parameter name="dollar" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[select 
+
+ r.receipt_date
+,r.cashier_session_id
+,(r.tendered-r.credit) as tendered
+,r.or_number
+,r.receipt_status
+,r.receipt_date
+,r.discount
+,r.credit
+,r.approval_code
+,r.member_id
+
+
+
+
+
+from db_pos_restaurant.receipts r
+where date(r.receipt_date) between date($P{date_from}) and date($P{date_to}) and r.credit=0]]>
+	</queryString>
+	<field name="receipt_date" class="java.sql.Timestamp"/>
+	<field name="cashier_session_id" class="java.lang.Integer"/>
+	<field name="tendered" class="java.lang.Double"/>
+	<field name="or_number" class="java.lang.String"/>
+	<field name="receipt_status" class="java.lang.Integer"/>
+	<field name="discount" class="java.lang.Double"/>
+	<field name="credit" class="java.lang.Double"/>
+	<field name="approval_code" class="java.lang.String"/>
+	<field name="member_id" class="java.lang.String"/>
+	<variable name="total" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{tendered}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="d4d89e52-b8f0-4504-a156-1b74dc3aa671" x="267" y="43" width="12" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bf1ce438-595e-4db8-985d-dfd01792b33f" x="131" y="0" width="273" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{busi_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="e1328256-490a-4eae-b797-e6b649031c84" x="279" y="43" width="112" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_to}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8768c552-cd74-431d-a838-e465de4d4bc5" x="133" y="43" width="42" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[As of:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ae81d8b7-0e10-41b1-8ec5-6b27b6910078" x="163" y="20" width="212" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CREDIT SALES REPORT]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="2cf3d648-fdaa-407e-a61a-f98f4ac5d232" x="175" y="43" width="92" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="12" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_from}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="4d8b75db-84b0-4b73-aaf8-0ee58f5add8c" x="155" y="0" width="128" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[OR #]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8aaf0551-f85d-4ffd-8119-92fd705b8aff" x="283" y="0" width="121" height="20"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[AMOUNT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="175225af-5f66-4a23-a7a6-252b3b5736e3" x="283" y="1" width="121" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tendered}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2c98eb07-4fea-4870-be48-444250dde173" x="155" y="1" width="128" height="20"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{or_number}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="#,##0.00">
+				<reportElement uuid="d137e66d-aa10-4a25-b885-372397b884a7" x="283" y="0" width="121" height="20"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Dashed"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

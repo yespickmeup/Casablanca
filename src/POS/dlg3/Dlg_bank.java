@@ -1,0 +1,820 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package POS.dlg3;
+
+import POS.Main;
+import POS.dlg2.Dlg_confirm;
+import POS.dlg2.Dlg_name;
+import POS.svc4.S1_bank;
+import POS.to2.to_bank;
+import POS.to2.to_card_type;
+import POS.utl.Center;
+
+import com.jgoodies.binding.adapter.AbstractTableAdapter;
+import com.jgoodies.binding.list.ArrayListModel;
+import com.lowagie.text.Font;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.util.List;
+import java.util.logging.Level;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import mijzcx.synapse.desk.utils.*;
+import mijzcx.synapse.desk.utils.KeyMapping.KeyAction;
+
+/**
+ *
+ * @author Dummy
+ */
+public class Dlg_bank extends javax.swing.JDialog {
+
+    /**
+     * Creates new form Dlg_bank
+     */
+    //<editor-fold defaultstate="collapsed" desc=" callback ">
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+
+
+    }
+
+    public static interface Callback {
+
+        void ok(CloseDialog closeDialog, OutputData data);
+    }
+
+    public static class InputData {
+    }
+
+    public static class OutputData {
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" Constructors ">
+    private Dlg_bank(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    private Dlg_bank(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    public Dlg_bank() {
+        super();
+        initComponents();
+        myInit();
+
+    }
+    private Dlg_bank myRef;
+
+    private void setThisRef(Dlg_bank myRef) {
+        this.myRef = myRef;
+    }
+    private static java.util.Map<Object, Dlg_bank> dialogContainer = new java.util.HashMap();
+
+    public static void clearUpFirst(java.awt.Window parent) {
+        if (dialogContainer.containsKey(parent)) {
+            dialogContainer.remove(parent);
+        }
+    }
+
+    public static Dlg_bank create(java.awt.Window parent, boolean modal) {
+
+        if (modal) {
+            return create(parent, ModalityType.APPLICATION_MODAL);
+        }
+
+        return create(parent, ModalityType.MODELESS);
+
+    }
+
+    public static Dlg_bank create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
+
+        if (parent instanceof java.awt.Frame) {
+
+            Dlg_bank dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_bank((java.awt.Frame) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        if (parent instanceof java.awt.Dialog) {
+            Dlg_bank dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_bank((java.awt.Dialog) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        return null;
+
+    }
+    //</editor-fold>    
+
+    //<editor-fold defaultstate="collapsed" desc=" main ">
+    public static void main(String args[]) {
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Dlg_bank dialog = Dlg_bank.create(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" added ">
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible == true) {
+            getContentPane().removeAll();
+            initComponents();
+            myInit();
+            repaint();
+        }
+
+
+    }
+
+    public javax.swing.JPanel getSurface() {
+        return (javax.swing.JPanel) getContentPane();
+    }
+
+    public void nullify() {
+        myRef.setVisible(false);
+        myRef = null;
+    }
+    //</editor-fold>
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_bank = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbl_type = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        ds_title = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(159, 207, 243));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbl_bank.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbl_bank.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_bankMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_bank);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 590, 440));
+
+        tbl_type.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tbl_type);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 170, 426, 440));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/add32x32.png"))); // NOI18N
+        jButton1.setText("ADD");
+        jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 102, 42));
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/edit-pencil.png"))); // NOI18N
+        jButton2.setText("EDIT");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, -1, -1));
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/delete-minus.png"))); // NOI18N
+        jButton3.setText("DELETE");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 120, 130, -1));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/add32x32.png"))); // NOI18N
+        jButton4.setText("ADD");
+        jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 110, -1));
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/edit-pencil.png"))); // NOI18N
+        jButton5.setText("EDIT");
+        jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 120, 100, -1));
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/delete-minus.png"))); // NOI18N
+        jButton6.setText("DELETE");
+        jButton6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 120, 130, -1));
+
+        jPanel3.setBackground(java.awt.Color.white);
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        ds_title.setFont(new java.awt.Font("Arial Black", 1, 36)); // NOI18N
+        ds_title.setForeground(new java.awt.Color(41, 9, 149));
+        ds_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ds_title.setText("BANK");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ds_title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1056, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ds_title, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 1060, 70));
+
+        jPanel5.setBackground(java.awt.Color.white);
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel5.setFocusable(false);
+
+        jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close_1.png"))); // NOI18N
+        jButton7.setText("CLOSE");
+        jButton7.setBorderPainted(false);
+        jButton7.setContentAreaFilled(false);
+        jButton7.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close-MO_1.png"))); // NOI18N
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(899, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 1060, 70));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        add_bank();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        confirm();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        do_edit();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tbl_bankMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_bankMouseClicked
+        // TODO add your handling code here:
+        data_type();
+    }//GEN-LAST:event_tbl_bankMouseClicked
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        add_card_type();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        do_edit_type();
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        confirm_type();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton7ActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ds_title;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tbl_bank;
+    private javax.swing.JTable tbl_type;
+    // End of variables declaration//GEN-END:variables
+
+    private void myInit() {
+        Main.MyDB.setNames("db_pos_casablanca");
+        init_key();
+        init_tbl_baptism();
+        init_tbl_type();
+        data_employee();
+    }
+
+    public void do_pass() {
+    }
+    // <editor-fold defaultstate="collapsed" desc="Key">
+
+    private void disposed() {
+        this.dispose();
+    }
+
+    private void init_key() {
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_ESCAPE, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                btn_0.doClick();
+                disposed();
+            }
+        });
+    }
+    // </editor-fold>
+    private ArrayListModel tbl_employee_payroll_ALM;
+    private TblInvoicesModel tbl_employee_payroll_M;
+////    
+
+    private void init_tbl_baptism() {
+        tbl_employee_payroll_ALM = new ArrayListModel();
+        tbl_employee_payroll_M = new TblInvoicesModel(tbl_employee_payroll_ALM);
+
+
+        tbl_bank.setModel(tbl_employee_payroll_M);
+        tbl_bank.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tbl_bank.setRowHeight(25);
+
+//        tbl_bank.setAutoResizeMode(0);
+        int[] tbl_widths_accounts = {500, 0};
+
+        for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
+            if (i == 0) {
+                continue;
+            }
+            TableWidthUtilities.setColumnWidth(tbl_bank, i, tbl_widths_accounts[i]);
+//          TableWidthUtilities.
+//          TableWidthUtilities.
+
+        }
+
+        tbl_bank.getTableHeader().setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+
+        tbl_bank.setRowHeight(35);
+        tbl_bank.setFont(new java.awt.Font("Arial", 1, 12));
+    }
+
+    private void loadData_baptism(List<to_bank> acc) {
+        tbl_employee_payroll_ALM.clear();
+        tbl_employee_payroll_ALM.addAll(acc);
+    }
+
+    public static class TblInvoicesModel extends AbstractTableAdapter {
+
+        public static String[] COLUMNS = {
+            "NAME", "num"
+        };
+
+        public TblInvoicesModel(ListModel listmodel) {
+            super(listmodel, COLUMNS);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+//           
+//            if (column == 1) {
+//                return true;
+//            }
+
+            return false;
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+
+            return Object.class;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            to_bank tt = (to_bank) getRow(row);
+
+            switch (col) {
+            case 0:
+                return tt.name;
+
+            default:
+                return tt.num;
+            }
+        }
+    }
+
+    private void data_employee() {
+//        String date = lb_date_baptism.getText();
+//        String name = tf_searc.getText();
+        loadData_baptism(S1_bank.ret_banks());
+    }
+
+    private void do_add(String name) {
+        S1_bank.add_bank(name);
+        data_employee();
+    }
+
+    private void add_bank() {
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("");
+        nd.do_pass("");
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                do_add(data.name);
+            }
+        });
+        Center.setCenter(nd);
+//        Application.locateOnParentCenter(p, nd);
+
+        nd.setVisible(true);
+    }
+
+    private void do_edit() {
+        int row = tbl_bank.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String name = tbl_bank.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_bank.getModel().getValueAt(row, 1).toString();
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("");
+        nd.do_pass(name);
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                edit(data.name, num);
+            }
+        });
+        Center.setCenter(nd);
+//        Application.locateOnParentCenter(p, nd);
+
+        nd.setVisible(true);
+    }
+
+    private void edit(String name, String num) {
+        S1_bank.edit_bank(name, num);
+        data_employee();
+    }
+
+    private void confirm() {
+        int row = tbl_bank.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String name = tbl_bank.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_bank.getModel().getValueAt(row, 1).toString();
+        Window p = (Window) this;
+        Dlg_confirm nd = Dlg_confirm.create(p, true);
+        nd.setTitle("");
+//        nd.do_pass("");
+        nd.setCallback(new Dlg_confirm.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm.Data data) {
+                closeDialog.ok();
+                delete_bank(num);
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog) {
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void delete_bank(String num) {
+        S1_bank.delete_bank(num);
+        data_employee();
+    }
+    private ArrayListModel tbl_type_ALM;
+    private TbltypeModel tbl_type_M;
+////    
+
+    private void init_tbl_type() {
+        tbl_type_ALM = new ArrayListModel();
+        tbl_type_M = new TbltypeModel(tbl_type_ALM);
+
+
+        tbl_type.setModel(tbl_type_M);
+        tbl_type.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tbl_type.setRowHeight(25);
+
+//        tbl_type.setAutoResizeMode(0);
+        int[] tbl_widths_accounts = {300, 0, 0};
+
+        for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
+            if (i == 0) {
+                continue;
+            }
+            TableWidthUtilities.setColumnWidth(tbl_type, i, tbl_widths_accounts[i]);
+//          TableWidthUtilities.
+//          TableWidthUtilities.
+        }
+
+        tbl_type.getTableHeader().setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+        tbl_type.setRowHeight(35);
+        tbl_type.setFont(new java.awt.Font("Arial", 1, 12));
+    }
+
+    private void loadData_type(List<to_card_type> acc) {
+        tbl_type_ALM.clear();
+        tbl_type_ALM.addAll(acc);
+    }
+
+    public static class TbltypeModel extends AbstractTableAdapter {
+
+        public static String[] COLUMNS = {
+            "CARD TYPE", "id", "NUm"
+        };
+
+        public TbltypeModel(ListModel listmodel) {
+            super(listmodel, COLUMNS);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+//           
+//            if (column == 1) {
+//                return true;
+//            }
+
+            return false;
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+
+            return Object.class;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            to_card_type tt = (to_card_type) getRow(row);
+
+            switch (col) {
+            case 0:
+                return tt.name;
+            case 1:
+                return tt.id;
+
+            default:
+                return tt.bank_num;
+            }
+        }
+    }
+
+    private void data_type() {
+//        String date = lb_date_baptism.getText();
+        int row = tbl_bank.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String name = tbl_bank.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_bank.getModel().getValueAt(row, 1).toString();
+
+        loadData_type(S1_bank.card_type(num));
+    }
+
+    private void do_add_card(String name, String bank_id) {
+        S1_bank.add_card_type(name, bank_id);
+        data_type();
+    }
+
+    private void add_card_type() {
+        int row = tbl_bank.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String name = tbl_bank.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_bank.getModel().getValueAt(row, 1).toString();
+
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("");
+        nd.do_pass("");
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                do_add_card(data.name, num);
+            }
+        });
+        Center.setCenter(nd);
+//        Application.locateOnParentCenter(p, nd);
+
+        nd.setVisible(true);
+    }
+
+    private void do_edit_type() {
+        int row = tbl_type.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String name = tbl_type.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_type.getModel().getValueAt(row, 1).toString();
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("");
+        nd.do_pass(name);
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                edit_type(data.name, num);
+            }
+        });
+        Center.setCenter(nd);
+//        Application.locateOnParentCenter(p, nd);
+
+        nd.setVisible(true);
+    }
+
+    private void edit_type(String name, String num) {
+        S1_bank.edit_type(name, num);
+        data_type();
+    }
+
+    private void confirm_type() {
+        int row = tbl_type.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        String name = tbl_type.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_type.getModel().getValueAt(row, 1).toString();
+        Window p = (Window) this;
+        Dlg_confirm nd = Dlg_confirm.create(p, true);
+        nd.setTitle("");
+//        nd.do_pass("");
+        nd.setCallback(new Dlg_confirm.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm.Data data) {
+                closeDialog.ok();
+                delete_type(num);
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog) {
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void delete_type(String num) {
+        S1_bank.delete_type(num);
+        data_type();
+    }
+}

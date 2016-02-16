@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="216" pageHeight="288" columnWidth="196" leftMargin="0" rightMargin="20" topMargin="0" bottomMargin="0" uuid="a10b71be-b263-41c0-89ee-e6402f3df33c">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="date_from" class="java.util.Date"/>
+	<parameter name="date_to" class="java.util.Date"/>
+	<parameter name="busi_name" class="java.lang.String"/>
+	<parameter name="mydb" class="java.lang.String"/>
+	<parameter name="dollar" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[select
+ i.prod_num
+ ,i.prod_name
+ ,i.qty
+ ,date_added
+from db_pos_casablanca.stock_out i 
+where Date(i.date_added) between $P{date_from} and $P{date_to}
+order by i.prod_name asc]]>
+	</queryString>
+	<field name="prod_num" class="java.lang.String"/>
+	<field name="prod_name" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="date_added" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="52" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5adbc05a-97ca-4b02-84d4-b3e3a94fd8ae" x="15" y="10" width="165" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{busi_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9c73c645-9434-4459-9a07-e05144985c04" x="15" y="22" width="165" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[STOCKS OUT]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="7756675d-b76b-4ed8-b22f-b987bcfa723a" x="40" y="34" width="62" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_from}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2c1ad997-871b-425a-995f-917489e7bfb6" x="102" y="34" width="9" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="b8ec4498-f653-4168-96ad-419d6a0a767b" x="111" y="34" width="69" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_to}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="68b0afb0-4ce9-4649-baa0-805ebd6f7597" x="15" y="34" width="25" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[As of:]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="518ea842-f3ab-4e37-bac2-d4e09c8855ac" x="80" y="11" width="78" height="12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DESCRIPTION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b8d5864-c088-4164-8da9-a527bd201612" x="14" y="11" width="66" height="12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DATE ADDED]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a8e1646-dd1b-45c5-8fd7-ffbf45b78d1d" x="158" y="11" width="22" height="12"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Dotted"/>
+					<leftPen lineWidth="1.0" lineStyle="Dotted"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0" lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[QTY]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement uuid="5d80a1f8-75a4-4178-9a5b-a4785b7a7a30" x="80" y="0" width="78" height="12"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prod_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement uuid="f665bb36-4fdf-4afd-9c6c-5170e8e82810" x="158" y="0" width="21" height="12"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy h.mm a">
+				<reportElement uuid="79f7b925-1b6f-47ca-921f-286776177cc3" x="14" y="0" width="66" height="12"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{date_added}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="59" splitType="Stretch"/>
+	</summary>
+</jasperReport>

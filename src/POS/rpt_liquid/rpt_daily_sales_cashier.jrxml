@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="216" pageHeight="288" columnWidth="176" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ef9f3cd-bcac-4f4a-acc4-8f99ace436f4">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rpt_credits" class="java.util.List"/>
+	<parameter name="rpt_expenses" class="java.util.List"/>
+	<parameter name="date_from" class="java.util.Date"/>
+	<parameter name="date_to" class="java.util.Date"/>
+	<parameter name="busi_name" class="java.lang.String"/>
+	<parameter name="my_db" class="java.lang.String"/>
+	<parameter name="dollar" class="java.lang.Double"/>
+	<parameter name="tendered" class="java.lang.Double"/>
+	<parameter name="discount" class="java.lang.Double"/>
+	<parameter name="credit" class="java.lang.Double"/>
+	<parameter name="foods" class="java.lang.Double"/>
+	<parameter name="beverages" class="java.lang.Double"/>
+	<parameter name="expences" class="java.lang.Double"/>
+	<parameter name="tot_bev" class="java.lang.Double"/>
+	<parameter name="net_total" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<variable name="cash_in_hand" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="248" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="013cfd3d-0730-4447-b778-a2a04ed797fd" x="15" y="12" width="142" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAILY SALES SUMMARY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf3ff0fd-04bd-4933-aa39-1c47be9f6860" x="15" y="24" width="30" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="3a880472-bfaa-40e0-807c-675d5be9bbf1" x="45" y="24" width="100" height="12"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_from}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a1d6f929-69b1-4120-babe-ace38ee93388" x="15" y="0" width="142" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{busi_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="e29afc15-bea4-449b-9705-31dc3cc15a43" mode="Transparent" x="70" y="111" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tendered}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="35858ca6-e98e-4117-bb92-7469eff177ce" mode="Transparent" x="70" y="146" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{discount}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="101c5e21-6576-4814-81ed-98c01f46bdb7" mode="Transparent" x="70" y="136" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{credit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="3ed22026-8908-4bcb-a4b1-cd114fc51045" mode="Transparent" x="70" y="55" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{foods}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="cde9011e-4381-43c7-80a9-233564cc0ce0" mode="Transparent" x="70" y="65" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{beverages}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="55af699c-2cd1-49e1-81da-8fc19107122c" mode="Transparent" x="70" y="156" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{expences}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="cef9aced-290e-4240-9fa9-c11eb5b3e2a2" x="0" y="43" width="64" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BREAKDOWN:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dacd233a-d3d7-4858-9dc8-2b2fce6a2e05" x="18" y="55" width="46" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[FOODS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="59506905-6d34-432d-ac96-e4e62514f9a9" x="18" y="65" width="46" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[BEVERAGES:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="a71fc543-4e40-42fc-98fc-edb4480385a9" mode="Transparent" x="70" y="78" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{tot_bev}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9c0d44b7-8375-4ea7-82ca-28fb0a2f592f" x="13" y="111" width="51" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[SALES (Php):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="002a34b8-c565-4075-ac73-a523ab41cd69" x="13" y="136" width="51" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CREDITS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a43a1c4e-a7a2-47d7-aa80-900e957ca011" x="18" y="99" width="46" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e47f3d24-9042-4b93-9d1e-12dd74411d6a" x="12" y="146" width="52" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[DISCOUNTS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b5d51a26-e05f-4700-988b-9b3a1dec6a91" x="12" y="157" width="52" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[EXPENSES:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement uuid="8c7d36e4-d9c6-4f4c-aa5f-5a940c257801" mode="Transparent" x="70" y="121" width="58" height="12" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="8" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dollar}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="785be847-6db3-4464-b161-7b6096497de4" x="0" y="121" width="64" height="12"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[SALES (USD):]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="bf3ff0fd-04bd-4933-aa39-1c47be9f6860" x="15" y="194" width="30" height="12"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Cashier:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="a57ce493-de9b-4840-bc63-09260ad94b6f" x="45" y="194" width="100" height="12"/>
+				<box>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{my_db}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

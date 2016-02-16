@@ -1,0 +1,577 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * Dlg_endorsement.java
+ *
+ * Created on Nov 20, 2011, 4:50:06 PM
+ */
+package POS.dlg;
+
+import POS.svc.S7_add_new_endorsements;
+import POS.svc2.S5_ret_system_date;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import mijzcx.synapse.desk.utils.CloseDialog;
+import mijzcx.synapse.desk.utils.KeyMapping;
+import mijzcx.synapse.desk.utils.KeyMapping.KeyAction;
+
+/**
+ *
+ * @author u2
+ */
+public class Dlg_endorsement extends javax.swing.JDialog {
+
+    //<editor-fold defaultstate="collapsed" desc=" callback ">
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+    }
+
+    public static interface Callback {
+
+        void ok(CloseDialog closeDialog, OutputData data);
+    }
+
+    public static class OutputData {
+    }
+
+    public static class InputData {
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" Constructors ">
+    private Dlg_endorsement(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    private Dlg_endorsement(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    public Dlg_endorsement() {
+        super();
+        initComponents();
+        myInit();
+
+    }
+    private Dlg_endorsement myRef;
+
+    private void setThisRef(Dlg_endorsement myRef) {
+        this.myRef = myRef;
+    }
+    private static java.util.Map<Object, Dlg_endorsement> dialogContainer = new java.util.HashMap();
+
+    public static void clearUpFirst(java.awt.Window parent) {
+        if (dialogContainer.containsKey(parent)) {
+            dialogContainer.remove(parent);
+        }
+    }
+
+    public static Dlg_endorsement create(java.awt.Window parent, boolean modal) {
+
+        if (modal) {
+            return create(parent, ModalityType.APPLICATION_MODAL);
+        }
+
+        return create(parent, ModalityType.MODELESS);
+
+    }
+
+    public static Dlg_endorsement create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
+
+        if (parent instanceof java.awt.Frame) {
+
+            Dlg_endorsement dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_endorsement((java.awt.Frame) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().
+                        log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        if (parent instanceof java.awt.Dialog) {
+            Dlg_endorsement dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_endorsement((java.awt.Dialog) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().
+                        log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        return null;
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" main ">
+    public static void main(String args[]) {
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.
+                    getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Dlg_endorsement dialog = Dlg_endorsement.create(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" added ">
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible == true) {
+            getContentPane().
+                    removeAll();
+            initComponents();
+            myInit();
+            repaint();
+            validateTree();
+        }
+
+
+    }
+
+    public javax.swing.JPanel getSurface() {
+        return (javax.swing.JPanel) getContentPane();
+    }
+
+    public void nullify() {
+        myRef.setVisible(false);
+        myRef = null;
+    }
+    //</editor-fold>
+
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        ds_title = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        tf_no_heads_endorsed = new javax.swing.JTextField();
+        tf_total_kilos = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        dp_date_delivered = new org.jdesktop.swingx.JXDatePicker();
+        jLabel3 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ta_remarks = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ta_notes = new javax.swing.JTextArea();
+        jPanel6 = new javax.swing.JPanel();
+        btn_ok = new javax.swing.JButton();
+        btn_clearall = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(244, 195, 191));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setLayout(null);
+
+        jPanel2.setBackground(java.awt.Color.white);
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        ds_title.setFont(new java.awt.Font("Arial Black", 0, 36));
+        ds_title.setForeground(new java.awt.Color(41, 9, 149));
+        ds_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ds_title.setText("HEAD ENDORSEMENT");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img/endorsement.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(49, 49, 49)
+                .addComponent(ds_title, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(326, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(ds_title, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(14, 14, 960, 144);
+
+        jPanel4.setBackground(new java.awt.Color(244, 195, 191));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel5.setForeground(new java.awt.Color(41, 9, 149));
+        jLabel5.setText("No. of Heads Endorsed:");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel6.setForeground(new java.awt.Color(41, 9, 149));
+        jLabel6.setText("Total Kilos:");
+
+        tf_no_heads_endorsed.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
+
+        tf_total_kilos.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_total_kilos, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tf_no_heads_endorsed, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_no_heads_endorsed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tf_total_kilos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(20, 280, 428, 140);
+
+        jPanel3.setBackground(new java.awt.Color(244, 195, 191));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel3.setForeground(new java.awt.Color(41, 9, 149));
+        jLabel3.setText("Date Delivered:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(dp_date_delivered, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(106, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(dp_date_delivered, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
+        );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(20, 190, 430, 80);
+
+        jPanel5.setBackground(new java.awt.Color(244, 195, 191));
+        jPanel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        ta_remarks.setColumns(20);
+        ta_remarks.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
+        ta_remarks.setRows(5);
+        ta_remarks.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jScrollPane2.setViewportView(ta_remarks);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel7.setForeground(new java.awt.Color(41, 9, 149));
+        jLabel7.setText("Remarks:");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jLabel8.setForeground(new java.awt.Color(41, 9, 149));
+        jLabel8.setText("Notes:");
+
+        ta_notes.setColumns(20);
+        ta_notes.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
+        ta_notes.setRows(5);
+        ta_notes.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        jScrollPane1.setViewportView(ta_notes);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel8))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
+        );
+
+        jPanel1.add(jPanel5);
+        jPanel5.setBounds(460, 190, 510, 230);
+
+        jPanel6.setBackground(java.awt.Color.white);
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_ok.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img/ok_login.png"))); // NOI18N
+        btn_ok.setBorderPainted(false);
+        btn_ok.setContentAreaFilled(false);
+        btn_ok.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img/ok_login_mo.png"))); // NOI18N
+        btn_ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_okActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btn_ok, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 2, -1, 62));
+
+        btn_clearall.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img/clear.png"))); // NOI18N
+        btn_clearall.setBorderPainted(false);
+        btn_clearall.setContentAreaFilled(false);
+        btn_clearall.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img/clear_mo.png"))); // NOI18N
+        btn_clearall.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearallActionPerformed(evt);
+            }
+        });
+        jPanel6.add(btn_clearall, new org.netbeans.lib.awtextra.AbsoluteConstraints(837, 4, -1, 60));
+
+        jLabel12.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
+        jLabel12.setForeground(new java.awt.Color(41, 9, 149));
+        jLabel12.setText("(F5)");
+        jPanel6.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 60, 40, -1));
+
+        jLabel9.setFont(new java.awt.Font("DejaVu Sans", 1, 14));
+        jLabel9.setForeground(new java.awt.Color(41, 9, 149));
+        jLabel9.setText("(ENTER)");
+        jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 60, -1, -1));
+
+        jPanel1.add(jPanel6);
+        jPanel6.setBounds(20, 430, 950, 100);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 987, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+private void btn_okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_okActionPerformed
+// TODO add your handling code here:
+    do_ok();
+//    prcss_work_on();
+}//GEN-LAST:event_btn_okActionPerformed
+
+private void btn_clearallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearallActionPerformed
+    do_clearall();
+}//GEN-LAST:event_btn_clearallActionPerformed
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_clearall;
+    private javax.swing.JButton btn_ok;
+    private org.jdesktop.swingx.JXDatePicker dp_date_delivered;
+    private javax.swing.JLabel ds_title;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea ta_notes;
+    private javax.swing.JTextArea ta_remarks;
+    private javax.swing.JTextField tf_no_heads_endorsed;
+    private javax.swing.JTextField tf_total_kilos;
+    // End of variables declaration//GEN-END:variables
+    //<editor-fold defaultstate="collapsed" desc=" myInit ">
+
+    private void myInit() {
+        initActionKey();
+        init_cb();
+    }
+
+    private void initActionKey() {
+
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_ESCAPE, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_ENTER, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                do_ok();
+            }
+        });
+
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_F5, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                do_clearall();
+            }
+        });
+    }
+    //</editor-fold>
+
+    private void init_cb() {
+        dp_date_delivered.setDate(S5_ret_system_date.do_ret_system_date());
+    }
+
+    public void load(InputData data) {
+    }
+
+    private void do_clearall() {
+
+
+        tf_no_heads_endorsed.setText("");
+//        tf_no_products_per_head.setText("");
+        tf_total_kilos.setText("");
+        ta_notes.setText("");
+        ta_remarks.setText("");
+
+    }
+
+    private void cancel() {
+        this.setVisible(false);
+    }
+
+    private void do_ok() {
+//        if (callback == null) {
+//            return;
+//        }
+
+        if (tf_no_heads_endorsed.getText().
+                isEmpty() || tf_total_kilos.getText().
+                isEmpty()) {
+            return;
+        }
+
+//        Executor.doExecute(this, new Executor.Task() {
+//
+//            @Override
+//            public void work_on() {
+        prcss_work_on();
+//            }
+//        });
+    }
+
+    private void prcss_work_on() {
+
+        String prod_id = "1";
+
+        double num_head_endorse = Double.parseDouble(tf_no_heads_endorsed.
+                getText());
+        double num_of_prod_perhead = 0.0;
+        double total_kilos = Double.parseDouble(tf_total_kilos.getText());
+
+        String remarks = ta_remarks.getText();
+        String notes = ta_notes.getText();
+
+        Date date_ordered = dp_date_delivered.getDate();
+
+        S7_add_new_endorsements.add_new_endorsements(prod_id, num_head_endorse, num_of_prod_perhead, total_kilos, remarks, notes, date_ordered);
+
+        this.dispose();
+    }
+}

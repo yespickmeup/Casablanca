@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="216" pageHeight="288" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="0" uuid="90451455-5007-4e85-ba91-b46598aad628">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="date_from" class="java.util.Date"/>
+	<parameter name="date_to" class="java.util.Date"/>
+	<parameter name="busi_name" class="java.lang.String"/>
+	<parameter name="mydb" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select 
+ ri.receipt_id 
+,ri.product_name 
+,ri.unit_price 
+,sum(ri.qty) as qty
+,ri.type_name
+,ri.description
+,UPPER(ri.cat_name) as cat_name
+,sum(ri.qty * ri.unit_price) as total_all
+
+,r.receipt_date
+,r.cashier_session_id
+,(r.tendered-r.credit) as tendered
+,r.or_number
+,r.receipt_status
+,r.receipt_date
+,r.discount
+,r.credit
+,r.approval_code
+
+
+from db_pos_casablanca.receipt_items ri
+join  db_pos_casablanca.receipts r
+on ri.receipt_id=r.or_number
+where date(r.receipt_date) between date($P{date_from}) and date($P{date_to})
+group by ri.product_name order by ri.cat_name]]>
+	</queryString>
+	<field name="receipt_id" class="java.lang.String"/>
+	<field name="product_name" class="java.lang.String"/>
+	<field name="unit_price" class="java.lang.Double"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="type_name" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="cat_name" class="java.lang.String"/>
+	<field name="total_all" class="java.lang.Double"/>
+	<field name="receipt_date" class="java.sql.Timestamp"/>
+	<field name="cashier_session_id" class="java.lang.Integer"/>
+	<field name="tendered" class="java.lang.Double"/>
+	<field name="or_number" class="java.lang.String"/>
+	<field name="receipt_status" class="java.lang.Integer"/>
+	<field name="discount" class="java.lang.Double"/>
+	<field name="credit" class="java.lang.Double"/>
+	<field name="approval_code" class="java.lang.String"/>
+	<variable name="amount" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{unit_price} *$F{qty}]]></variableExpression>
+	</variable>
+	<variable name="total" class="java.lang.Double" incrementType="Group" incrementGroup="cat_name" calculation="Sum">
+		<variableExpression><![CDATA[$V{tots}]]></variableExpression>
+	</variable>
+	<variable name="tots" class="java.lang.Double" resetType="Group" resetGroup="cat_name" calculation="Sum">
+		<variableExpression><![CDATA[$F{qty} * $F{unit_price}]]></variableExpression>
+	</variable>
+	<variable name="total_all_1" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_all}]]></variableExpression>
+	</variable>
+	<group name="cat_name">
+		<groupExpression><![CDATA[$F{cat_name}]]></groupExpression>
+		<groupHeader>
+			<band height="30">
+				<textField>
+					<reportElement uuid="5093ba3d-b860-4128-809e-26e8aceb6625" x="53" y="5" width="50" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cat_name}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement uuid="bc8579d4-cee7-46cc-a1d1-5971a9886616" x="0" y="5" width="50" height="12"/>
+					<textElement verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[CATEGORY:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ccc3610f-0ace-4b37-be41-36154239c364" x="5" y="18" width="50" height="12"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Dotted"/>
+						<leftPen lineWidth="1.0" lineStyle="Dotted"/>
+						<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+						<rightPen lineWidth="1.0" lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[DESCRIPTION]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ced8b021-7dfc-4153-a8a7-e79ed0d0ab3d" x="57" y="18" width="38" height="12"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Dotted"/>
+						<leftPen lineWidth="1.0" lineStyle="Dotted"/>
+						<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+						<rightPen lineWidth="1.0" lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[PRICE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="ede7bc29-b249-4e1c-a342-5b3d96be65e2" x="96" y="18" width="38" height="12"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Dotted"/>
+						<leftPen lineWidth="1.0" lineStyle="Dotted"/>
+						<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+						<rightPen lineWidth="1.0" lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[QTY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9925c7bb-6c26-440c-884f-c83609290c16" x="135" y="18" width="38" height="12"/>
+					<box>
+						<topPen lineWidth="1.0" lineStyle="Dotted"/>
+						<leftPen lineWidth="1.0" lineStyle="Dotted"/>
+						<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+						<rightPen lineWidth="1.0" lineStyle="Dotted"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[AMOUNT]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<staticText>
+					<reportElement uuid="4dcf7256-bcb9-4f98-9ca6-dfc7e9a46f7f" x="26" y="11" width="174" height="0"/>
+					<box>
+						<pen lineStyle="Dashed"/>
+						<topPen lineWidth="1.0" lineStyle="Dashed"/>
+						<leftPen lineStyle="Dashed"/>
+						<bottomPen lineStyle="Dashed"/>
+						<rightPen lineStyle="Dashed"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="6"/>
+					</textElement>
+					<text><![CDATA[]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement uuid="ebb3a0e2-3d49-451c-ba58-a011109238c0" x="124" y="0" width="50" height="12"/>
+					<box>
+						<topPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{tots}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="3d29a998-b029-477c-b17d-56f6f9a07d73" x="45" y="10" width="50" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALES REPORT]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="32382280-4058-4f21-941d-7d88eec86bcf" x="33" y="20" width="50" height="12"/>
+				<textElement textAlignment="Right">
+					<font size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_from}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d7718e78-ff4c-4533-b0da-5b96ad7f7958" x="3" y="20" width="50" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[As of:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="721dbd84-2b9c-4e09-b15b-6d90f4c0bcfa" x="0" y="0" width="142" height="12"/>
+				<textElement textAlignment="Center">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{busi_name}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="672c5a86-e8e7-4891-bc49-c859c87ddd20" x="92" y="20" width="50" height="12"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{date_to}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d7598257-0822-4843-86f0-c5a0e304f231" x="83" y="20" width="9" height="12"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement uuid="493ada3b-23a2-41e2-8160-b48e3cc5e04d" x="5" y="1" width="50" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="d877ab56-dce7-440c-a70c-05d7ea45df4d" x="57" y="1" width="38" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unit_price}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0">
+				<reportElement uuid="881b6dab-789d-4afa-b03e-0f2ed30bcd14" x="95" y="1" width="38" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="fdb430b5-a17e-4098-9e43-e43b737cd39b" x="135" y="1" width="38" height="12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="01ff42a3-580e-48da-8c79-e39457ca9b00" x="57" y="5" width="66" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL SALES:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="84cf30a6-0654-4767-9918-4a4c7d8f166b" x="123" y="5" width="50" height="22"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{total_all_1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

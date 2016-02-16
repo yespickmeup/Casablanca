@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="216" pageHeight="3600" columnWidth="216" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="37927f80-6515-41df-8387-6edcf4722f80">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="table_no" class="java.lang.String"/>
+	<parameter name="printing_assembly" class="java.lang.String"/>
+	<parameter name="printing_assembly_name" class="java.lang.String"/>
+	<parameter name="table_name" class="java.lang.String"/>
+	<parameter name="waiter" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+id
+,qty
+,description
+,price
+from db_pos_casablanca.customer_tables_details
+where
+table_no_id=$P{table_no}
+and printing_assembly=$P{printing_assembly}
+and status='0']]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="price" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="69" splitType="Stretch">
+			<textField>
+				<reportElement uuid="625fd86e-144e-44ea-948b-605cc70478ba" x="83" y="13" width="118" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{table_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b155a923-98ba-4e76-ad19-720e2c007600" x="36" y="30" width="47" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[PLACE:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2603bdfe-a37a-4d79-9a07-eb7cd1083248" x="36" y="13" width="47" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[TABLE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6afd109a-c9c9-4e69-af84-6e6055b3234a" x="83" y="30" width="118" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{printing_assembly_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8812f007-315a-4d4d-9dec-99e06a41e126" x="36" y="47" width="47" height="17"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[WAITER:]]></text>
+			</staticText>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement uuid="40f29baa-3352-41c6-848e-4137eafa3588" mode="Transparent" x="83" y="47" width="118" height="17" forecolor="#000000" backcolor="#FFFFFF"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="None" markup="none">
+					<font fontName="SansSerif" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{waiter}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="05a26f91-a50e-4840-88d8-120ca0eb94e2" x="156" y="0" width="45" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[QTY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b70e919e-03d9-4309-9b26-c881e5af2de7" x="36" y="0" width="120" height="17"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<text><![CDATA[DESCRIPTION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement uuid="39be1232-bfb9-45c5-a8c3-87c69c0532f6" x="156" y="0" width="45" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="dd7be667-8e5e-4d1f-9f81-98d6fe2f2b66" x="36" y="0" width="120" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="31" splitType="Stretch"/>
+	</summary>
+</jasperReport>

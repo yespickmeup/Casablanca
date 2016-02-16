@@ -1,0 +1,785 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package POS.dlg2;
+
+import POS.utl.Center;
+import POS.utl.DateType;
+import POS.category_types.S1_categories;
+import POS_svc4.S1_update_category;
+import POS_svc4.S8_commission;
+import com.jgoodies.binding.adapter.AbstractTableAdapter;
+import com.jgoodies.binding.list.ArrayListModel;
+import com.lowagie.text.Font;
+import java.awt.Dimension;
+import java.awt.Window;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import mijzcx.synapse.desk.utils.*;
+
+/**
+ *
+ * @author Dummy
+ */
+public class Dlg_commission extends javax.swing.JDialog {
+
+    /**
+     * Creates new form Dlg_category
+     */
+    //<editor-fold defaultstate="collapsed" desc=" callback ">
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+
+
+
+
+    }
+
+    public static interface Callback {
+
+        void ok(CloseDialog closeDialog, OutputData data);
+    }
+
+    public static class InputData {
+    }
+
+    public static class OutputData {
+    }
+
+//</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc=" Constructors ">
+    private Dlg_commission(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    private Dlg_commission(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    public Dlg_commission() {
+        super();
+        initComponents();
+        myInit();
+
+    }
+    private Dlg_commission myRef;
+
+    private void setThisRef(Dlg_commission myRef) {
+        this.myRef = myRef;
+    }
+    private static java.util.Map<Object, Dlg_commission> dialogContainer = new java.util.HashMap();
+
+    public static void clearUpFirst(java.awt.Window parent) {
+        if (dialogContainer.containsKey(parent)) {
+            dialogContainer.remove(parent);
+        }
+    }
+
+    public static Dlg_commission create(java.awt.Window parent, boolean modal) {
+
+        if (modal) {
+            return create(parent, ModalityType.APPLICATION_MODAL);
+        }
+
+        return create(parent, ModalityType.MODELESS);
+
+    }
+
+    public static Dlg_commission create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
+
+        if (parent instanceof java.awt.Frame) {
+
+            Dlg_commission dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_commission((java.awt.Frame) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        if (parent instanceof java.awt.Dialog) {
+            Dlg_commission dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_commission((java.awt.Dialog) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        return null;
+
+    }
+    //</editor-fold>    
+
+    //<editor-fold defaultstate="collapsed" desc=" main ">
+    public static void main(String args[]) {
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Dlg_commission dialog = Dlg_commission.create(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" added ">
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible == true) {
+            getContentPane().removeAll();
+            initComponents();
+            myInit();
+            repaint();
+        }
+
+
+    }
+
+    public javax.swing.JPanel getSurface() {
+        return (javax.swing.JPanel) getContentPane();
+    }
+
+    public void nullify() {
+        myRef.setVisible(false);
+        myRef = null;
+    }
+    //</editor-fold>
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_cat = new javax.swing.JTable();
+        jPanel3 = new javax.swing.JPanel();
+        ds_title = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jc_date = new com.toedter.calendar.JCalendar();
+        jLabel1 = new javax.swing.JLabel();
+        btn_clear = new javax.swing.JButton();
+        btn_add = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(159, 207, 243));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tbl_cat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "NAME"
+            }
+        ));
+        tbl_cat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_catMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_cat);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 570, 530));
+
+        jPanel3.setBackground(java.awt.Color.white);
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        ds_title.setFont(new java.awt.Font("Arial Black", 1, 24)); // NOI18N
+        ds_title.setForeground(new java.awt.Color(41, 9, 149));
+        ds_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ds_title.setText("COMMISSION");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ds_title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ds_title)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 980, 60));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/close32x32.png"))); // NOI18N
+        jButton4.setText("CLOSE");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 580, 110, 40));
+
+        jc_date.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jc_datePropertyChange(evt);
+            }
+        });
+        jPanel1.add(jc_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 120, 370, 310));
+
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel1.setText("CHOOSE DATE:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 90, -1, -1));
+
+        btn_clear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/delete-minus.png"))); // NOI18N
+        btn_clear.setText("DELETE");
+        btn_clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_clearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 490, 110, 40));
+
+        btn_add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/add32x32.png"))); // NOI18N
+        btn_add.setText("ADD");
+        btn_add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_addActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_add, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 440, 110, 40));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 983, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jc_datePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jc_datePropertyChange
+        // TODO add your handling code here:
+        data_employee();
+    }//GEN-LAST:event_jc_datePropertyChange
+
+    private void btn_addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addActionPerformed
+        // TODO add your handling code here:
+        do_add_commission();
+    }//GEN-LAST:event_btn_addActionPerformed
+
+    private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
+        // TODO add your handling code here:
+        do_remove();
+    }//GEN-LAST:event_btn_clearActionPerformed
+
+    private void tbl_catMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_catMouseClicked
+        // TODO add your handling code here:
+        click();
+    }//GEN-LAST:event_tbl_catMouseClicked
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_add;
+    private javax.swing.JButton btn_clear;
+    private javax.swing.JLabel ds_title;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JCalendar jc_date;
+    private javax.swing.JTable tbl_cat;
+    // End of variables declaration//GEN-END:variables
+
+    private void myInit() {
+
+        jc_date.setDate(new Date());
+        init_tbl_baptism();
+        j = 2;
+        data_employee();
+    }
+    int j = 0;
+
+    public void do_pass(String name) {
+    }
+    private ArrayListModel tbl_employee_payroll_ALM;
+    private TblInvoicesModel tbl_employee_payroll_M;
+////    
+
+    private void init_tbl_baptism() {
+        tbl_employee_payroll_ALM = new ArrayListModel();
+        tbl_employee_payroll_M = new TblInvoicesModel(tbl_employee_payroll_ALM);
+
+
+        tbl_cat.getTableHeader().setPreferredSize(new Dimension(100, 30));
+        tbl_cat.setModel(tbl_employee_payroll_M);
+        tbl_cat.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tbl_cat.setRowHeight(25);
+
+//        tbl_cat.setAutoResizeMode(0);
+        int[] tbl_widths_accounts = {0, 0, 100, 100, 100};
+
+        for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
+            if (i == 2) {
+                continue;
+            }
+            TableWidthUtilities.setColumnWidth(tbl_cat, i, tbl_widths_accounts[i]);
+//          TableWidthUtilities.
+//          TableWidthUtilities.
+        }
+//        TableUtility.align_row_to_Center(tbl_cat, 0);
+
+        tbl_cat.getTableHeader().setFont(new java.awt.Font("Arial", Font.BOLD, 14));
+        tbl_cat.setRowHeight(35);
+        tbl_cat.setFont(new java.awt.Font("Arial", 1, 12));
+    }
+
+    private void loadData_commission(List<S8_commission.to_commission> acc) {
+        tbl_employee_payroll_ALM.clear();
+        tbl_employee_payroll_ALM.addAll(acc);
+    }
+
+    private void loadData_commission2(List<S8_commission.to_commission> acc) {
+
+        tbl_employee_payroll_ALM.clear();
+        tbl_employee_payroll_ALM.addAll(acc);
+    }
+
+    public static class TblInvoicesModel extends AbstractTableAdapter {
+
+        public static String[] COLUMNS = {
+            "id", "cat_id", "CATEGORY NAME ", "TOTAL SALES", "COMMISSION"
+        };
+
+        public TblInvoicesModel(ListModel listmodel) {
+            super(listmodel, COLUMNS);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+//           
+//            if (column == 4) {
+//                return true;
+//            }
+
+            return false;
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+
+            return Object.class;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            S8_commission.to_commission tt = (S8_commission.to_commission) getRow(row);
+
+            switch (col) {
+                case 0:
+                    return tt.id;
+                case 1:
+                    return tt.cat_id;
+                case 2:
+                    return tt.cat_name;
+                case 3:
+                    return tt.total_sales;
+                default:
+                    return FitIn.fmt_wc_0(tt.comm_amount);
+            }
+        }
+    }
+    int naa = 0;
+
+    private void data_employee() {
+//        String date = lb_date_baptism.getText();
+//        String name = tf_searc.getText();
+
+        String date = DateType.sf.format(jc_date.getDate());
+
+        boolean exists = S8_commission.check_sales(date);
+
+        if (j == 2) {
+            if (exists) {
+                naa = 2;
+//                btn_add.setEnabled(false);
+//                btn_edit.setEnabled(true);
+                loadData_commission(S8_commission.ret_data(date));
+            } else {
+
+//                btn_add.setEnabled(true);
+//                btn_edit.setEnabled(false);
+                naa = 0;
+                loadData_commission2(S8_commission.set_data(date));
+            }
+        }
+
+
+    }
+
+    private void add_new() {
+        if (naa == 2) {
+        } else {
+//            do_edit_add();
+        }
+    }
+
+    private void save_data() {
+
+        int idx = tbl_cat.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
+
+
+
+        final String date = DateType.datetime.format(new Date());
+        final String cat_id = tbl_cat.getModel().getValueAt(idx, 1).toString();
+        String name = tbl_cat.getModel().getValueAt(idx, 2).toString();
+        final double sales = Double.parseDouble(tbl_cat.getModel().getValueAt(idx, 3).toString());
+        final double amount = Double.parseDouble(tbl_cat.getModel().getValueAt(idx, 4).toString());
+
+
+        Window p = (Window) this;
+        Dlg_confirm nd = Dlg_confirm.create(p, true);
+        nd.setTitle("");
+//        nd.do_pass("");
+        nd.setCallback(new Dlg_confirm.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm.Data data) {
+                closeDialog.ok();
+                S8_commission.add_commission(cat_id, sales, amount, date);
+                data_employee();
+
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog) {
+                closeDialog.ok();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void edit() {
+        int idx = tbl_cat.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
+
+
+        if (naa == 2) {
+//            do_edit_add();
+        } else {
+        }
+    }
+
+    private void click() {
+        int idx = tbl_cat.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
+        final String id = tbl_cat.getModel().getValueAt(idx, 0).toString();
+        if (id.equals("wala")) {
+            btn_add.setText("ADD");
+            btn_clear.setEnabled(false);
+        } else {
+            btn_clear.setEnabled(true);
+            btn_add.setText("EDIT");
+        }
+    }
+
+    private void do_add_commission() {
+
+        int idx = tbl_cat.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
+
+        final String id = tbl_cat.getModel().getValueAt(idx, 0).toString();
+        final String cat_id = tbl_cat.getModel().getValueAt(idx, 1).toString();
+            String name = tbl_cat.getModel().getValueAt(idx, 2).toString();
+            double amount = Double.parseDouble(tbl_cat.getModel().getValueAt(idx, 4).toString());
+            final double sales = Double.parseDouble(tbl_cat.getModel().getValueAt(idx, 3).toString());
+
+        if (id.equals("wala")) {
+            do_add_new(cat_id,sales);
+        } else {
+            
+            Window p = (Window) this;
+            Dlg_commission_add nd = Dlg_commission_add.create(p, true);
+            nd.setTitle("");
+            nd.do_pass(name, amount);
+            nd.setCallback(new Dlg_commission_add.Callback() {
+
+                @Override
+                public void ok(CloseDialog closeDialog, Dlg_commission_add.OutputData data) {
+                    closeDialog.ok();
+                    if (id.equals("wala")) {
+                        set_val(data);
+                        if_add_commission(cat_id, sales, data.amount, tbl_employee_payroll_ALM);
+                    } else {
+                        if_edit_commission(cat_id, sales, data.amount, id);
+
+                    }
+                   
+//                S8_commission.edit_commission(null, naa, WIDTH);
+//                set_val(data);
+                }
+            });
+            Center.setCenter(nd);
+
+            nd.setVisible(true);
+        }
+
+    }
+
+      private void do_add_new(final String cat_id,final double sales) {
+        int idx = tbl_cat.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
+
+
+        String name = tbl_cat.getModel().getValueAt(idx, 2).toString();
+        double amount = Double.parseDouble(tbl_cat.getModel().getValueAt(idx, 4).toString());
+        Window p = (Window) this;
+        Dlg_commission_add nd = Dlg_commission_add.create(p, true);
+        nd.setTitle("");
+        nd.do_pass(name, amount);
+        nd.setCallback(new Dlg_commission_add.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_commission_add.OutputData data) {
+                set_val(data);
+                if_add_commission(cat_id, sales, data.amount, tbl_employee_payroll_ALM);
+                closeDialog.ok();
+
+            }
+        });
+        Application.locateOnParentCenter(p, nd);
+
+        nd.setVisible(true);
+    }
+    private void if_add_commission(String cat_id, double sales, double amount, ArrayListModel tbl_employee_payroll_ALM) {
+        String date = DateType.sf.format(jc_date.getDate());
+        S8_commission.add_commission2(cat_id, sales, amount, date, tbl_employee_payroll_ALM);
+         data_employee();
+    }
+
+    private void if_add_commission(String cat_id, double sales, double comm_amount) {
+        String date = DateType.sf.format(jc_date.getDate());
+        S8_commission.add_commission(cat_id, sales, comm_amount, date);
+
+    }
+
+    private void if_edit_commission(String cat_id, double sales, double comm_amount, String id) {
+        String date = DateType.sf.format(jc_date.getDate());
+        S8_commission.edit_commission(id, sales, comm_amount);
+         data_employee();
+
+    }
+
+  
+
+    private void set_val(Dlg_commission_add.OutputData data) {
+        int idx = tbl_cat.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
+
+        S8_commission.to_commission order = (S8_commission.to_commission) tbl_employee_payroll_ALM.get(tbl_cat.convertRowIndexToModel(idx));
+        order.setComm_amount(data.amount);
+
+        tbl_employee_payroll_M.fireTableDataChanged();
+
+//        tbl_cat.getSelectionModel().setSelectionInterval(idx, idx);
+//        HelpScrollToView.view(idx, tbl_cat);
+        System.out.println(idx);
+
+    }
+
+    private void do_remove() {
+        int idx = tbl_cat.getSelectedRow();
+        if (idx < 0) {
+            return;
+        }
+
+
+        final String id = tbl_cat.getModel().getValueAt(idx, 0).toString();
+
+        Window p = (Window) this;
+        Dlg_confirm nd = Dlg_confirm.create(p, true);
+        nd.setTitle("");
+//        nd.do_pass("");
+        nd.setCallback(new Dlg_confirm.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm.Data data) {
+                closeDialog.ok();
+                S8_commission.delete_commission(id);
+                data_employee();
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog) {
+                closeDialog.ok();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+
+
+//        HelpScrollToView.view(idx, tbl_cat);
+    }
+
+    private void add() {
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("Prompt");
+//        nd.pass(date);
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                add_category(data.name);
+                data_employee();
+                ok1();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void ok1() {
+        if (callback != null) {
+            callback.ok(new CloseDialog(this), new OutputData());
+        }
+    }
+
+    private void add_category(String name) {
+        S1_categories.add_category(name,"");
+    }
+
+    private void edit_category() {
+
+        int row = tbl_cat.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        final String name = tbl_cat.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_cat.getModel().getValueAt(row, 1).toString();
+
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("Prompt");
+//        nd.pass(date);
+        nd.do_pass(name);
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                do_edit_category(data.name, num);
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void do_edit_category(String name, String num) {
+        S1_update_category.do_edit(name, num,"");
+        data_employee();
+        ok1();
+    }
+
+    private void do_delete_category() {
+        int row = tbl_cat.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+        final String name = tbl_cat.getModel().getValueAt(row, 0).toString();
+        final String num = tbl_cat.getModel().getValueAt(row, 1).toString();
+        Window p = (Window) this;
+        Dlg_confirm nd = Dlg_confirm.create(p, true);
+        nd.setTitle("");
+//         nd.do_pass("");
+        nd.setCallback(new Dlg_confirm.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm.Data data) {
+                closeDialog.ok();
+                S1_update_category.do_delete_category(num);
+                data_employee();
+                ok1();
+
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog) {
+                closeDialog.ok();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+//        S1_update_category.do_delete_category(num);
+//        data_employee();
+//        ok1();
+
+    }
+}

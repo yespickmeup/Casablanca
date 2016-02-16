@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpt_receipt1" pageWidth="197" pageHeight="277" columnWidth="197" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="cashier" class="java.lang.String"/>
+	<parameter name="orno" class="java.lang.String"/>
+	<parameter name="date" class="java.util.Date"/>
+	<parameter name="time" class="java.util.Date"/>
+	<parameter name="payment_mode" class="java.lang.String"/>
+	<parameter name="account_name" class="java.lang.String"/>
+	<parameter name="paid" class="java.lang.Double"/>
+	<parameter name="discount" class="java.lang.Double"/>
+	<parameter name="total_amount" class="java.lang.Double"/>
+	<parameter name="vatable_sales" class="java.lang.Double"/>
+	<parameter name="vat12p" class="java.lang.Double"/>
+	<parameter name="due" class="java.lang.Double"/>
+	<parameter name="chg" class="java.lang.Double"/>
+	<field name="product" class="java.lang.String"/>
+	<field name="qty" class="java.lang.Double"/>
+	<field name="price" class="java.lang.Double"/>
+	<variable name="total_amount" class="java.lang.Double" resetType="Group" resetGroup="sales" calculation="Sum">
+		<variableExpression><![CDATA[$V{amount}]]></variableExpression>
+	</variable>
+	<variable name="vatable_sales" class="java.lang.Double">
+		<variableExpression><![CDATA[($V{total_amount} - $P{discount}) / 1.2]]></variableExpression>
+	</variable>
+	<variable name="vat12p" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{total_amount} - $V{vatable_sales}]]></variableExpression>
+	</variable>
+	<variable name="amount" class="java.lang.Double">
+		<variableExpression><![CDATA[$F{qty} * $F{price}]]></variableExpression>
+	</variable>
+	<variable name="chg" class="java.lang.Double">
+		<variableExpression><![CDATA[$P{paid} - $V{total_amount}]]></variableExpression>
+	</variable>
+	<variable name="due" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{total_amount} - $P{discount}]]></variableExpression>
+	</variable>
+	<group name="sales">
+		<groupHeader>
+			<band height="75">
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="64" width="27" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="5"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[QTY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="125" y="64" width="56" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[AMOUNT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="27" y="64" width="99" height="10"/>
+					<box leftPadding="3"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[PRODUCT]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="38" y="54" width="84" height="10"/>
+					<box leftPadding="5"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{cashier}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="37" y="44" width="78" height="10"/>
+					<box leftPadding="5"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{orno}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="122" y="54" width="59" height="10"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Sales Trans]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="54" width="38" height="10"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Cashier:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="44" width="38" height="10"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[RfNo.OR]]></text>
+				</staticText>
+				<textField pattern="MM/dd/yyyy">
+					<reportElement x="122" y="34" width="59" height="10"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$P{date}]]></textFieldExpression>
+				</textField>
+				<textField pattern="h.mm.ss a">
+					<reportElement x="122" y="44" width="59" height="10"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[$P{time}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="27" y="0" width="137" height="10"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[JP Meatshop]]></text>
+				</staticText>
+				<line>
+					<reportElement x="3" y="73" width="192" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="3" y="9" width="178" height="25"/>
+					<textElement textAlignment="Center">
+						<font size="6"/>
+					</textElement>
+					<text><![CDATA[Address Here
+=PLS CHECK the Goods=
+And ask for an Official Receipt]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="34" width="38" height="10"/>
+					<textElement textAlignment="Right">
+						<font size="7"/>
+					</textElement>
+					<text><![CDATA[Trans:]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="38" y="34" width="84" height="10"/>
+					<box leftPadding="5"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{account_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="118">
+				<staticText>
+					<reportElement x="75" y="2" width="51" height="10"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[Total Amt:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="3" y="54" width="51" height="10"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[VAT Sales:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="3" y="63" width="51" height="10"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[12% VAT:]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="13" y="83" width="181" height="22"/>
+					<textElement textAlignment="Center">
+						<font size="9"/>
+					</textElement>
+					<text><![CDATA[Use for checking only.
+This is NOT an Official Receipt.]]></text>
+				</staticText>
+				<textField pattern="#,##0.00">
+					<reportElement x="125" y="2" width="56" height="10"/>
+					<box rightPadding="3">
+						<bottomPen lineWidth="0.75"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$P{total_amount}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="53" y="54" width="56" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$P{vatable_sales}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="53" y="63" width="56" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$P{vat12p}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="2" y="1" width="192" height="1"/>
+					<graphicElement>
+						<pen lineStyle="Double"/>
+					</graphicElement>
+				</line>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="125" y="32" width="56" height="10" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($P{paid} > 0)]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="0" rightPadding="3">
+						<pen lineStyle="Dashed"/>
+						<topPen lineStyle="Dashed"/>
+						<leftPen lineStyle="Dashed"/>
+						<bottomPen lineWidth="0.75" lineStyle="Dashed"/>
+						<rightPen lineStyle="Dashed"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$P{paid}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="101" y="32" width="25" height="10">
+						<printWhenExpression><![CDATA[new Boolean($P{paid} > 0)]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="5" rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[pd]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="101" y="42" width="25" height="10">
+						<printWhenExpression><![CDATA[new Boolean($P{chg} > 0)]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="5" rightPadding="3"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[chg]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="126" y="42" width="55" height="10" forecolor="#000000" backcolor="#FFFFFF">
+						<printWhenExpression><![CDATA[new Boolean($P{chg} > 0)]]></printWhenExpression>
+					</reportElement>
+					<box leftPadding="0" rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$P{chg}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Transparent" x="101" y="22" width="25" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box leftPadding="5" rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[due]]></text>
+				</staticText>
+				<textField pattern="#,##0.00" isBlankWhenNull="false">
+					<reportElement mode="Transparent" x="125" y="22" width="56" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+					<box leftPadding="0" rightPadding="3"/>
+					<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+						<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$P{due}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="27" y="0" width="99" height="10" isPrintWhenDetailOverflows="true"/>
+				<box leftPadding="3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{product}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="0" y="0" width="27" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box rightPadding="5"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="false">
+				<reportElement mode="Transparent" x="125" y="0" width="56" height="10" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box rightPadding="3"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single" markup="none">
+					<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[$V{amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

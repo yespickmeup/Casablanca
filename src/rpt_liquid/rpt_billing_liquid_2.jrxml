@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="006a20ca-32d8-4a71-99f8-654db29afdfe">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="busi_name" class="java.lang.String"/>
+	<parameter name="room_rate" class="java.lang.Double"/>
+	<parameter name="accomodation" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\i1\\Dropbox\\ronald_prototypes\\report_no_db\\src\\rpt_liquid\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="rpt_bar_and_resto" class="java.util.List"/>
+	<parameter name="rpt_others" class="java.util.List"/>
+	<group name="rpt_bar_and_resto">
+		<groupExpression><![CDATA[$P{rpt_bar_and_resto}]]></groupExpression>
+		<groupHeader>
+			<band height="95">
+				<subreport>
+					<reportElement uuid="4f95f1aa-0b57-4c5c-9e55-a6f9136798df" x="71" y="0" width="431" height="95"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{rpt_bar_and_resto}, false);]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rpt_bar_and_resto.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="rpt_others">
+		<groupExpression><![CDATA[$P{rpt_others}]]></groupExpression>
+		<groupHeader>
+			<band height="84">
+				<subreport>
+					<reportElement uuid="42f7b335-9119-427c-aa13-f28179eab44c" x="71" y="0" width="431" height="84"/>
+					<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($P{rpt_others}, false);]]></dataSourceExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "rpt_others.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement uuid="1b74cb0a-4800-455b-aeb8-faed6bb4290a" x="106" y="0" width="343" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{busi_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e41795a0-45f8-48e8-b8cb-62f7ba80a323" x="106" y="18" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{room_rate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="585560e6-3edc-47dd-8697-facde5a6a902" x="106" y="38" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{accomodation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+		<band/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band/>
+	</lastPageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

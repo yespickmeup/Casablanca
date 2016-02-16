@@ -1,0 +1,537 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package POS_dlg4;
+
+import POS.dlg2.Dlg_confirm;
+import POS.utl.Center;
+import POS.utl.TableUtility;
+import POS_svc4.S5_tables;
+import com.jgoodies.binding.adapter.AbstractTableAdapter;
+import com.jgoodies.binding.list.ArrayListModel;
+import com.lowagie.text.Font;
+import java.awt.Window;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.logging.Level;
+import javax.swing.ListModel;
+import javax.swing.ListSelectionModel;
+import mijzcx.synapse.desk.utils.*;
+import mijzcx.synapse.desk.utils.KeyMapping.KeyAction;
+
+/**
+ *
+ * @author i1
+ */
+public class Dlg_waiter extends javax.swing.JDialog {
+
+    /**
+     * Creates new form Dlg_table
+     */
+    //<editor-fold defaultstate="collapsed" desc=" callback ">
+    private Callback callback;
+
+    public void setCallback(Callback callback) {
+        this.callback = callback;
+
+
+    }
+
+    public static interface Callback {
+
+        void ok(CloseDialog closeDialog, OutputData data);
+    }
+
+    public static class InputData {
+    }
+
+    public static class OutputData {
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" Constructors ">
+    private Dlg_waiter(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    private Dlg_waiter(java.awt.Dialog parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        myInit();
+    }
+
+    public Dlg_waiter() {
+        super();
+        initComponents();
+        myInit();
+
+    }
+    private Dlg_waiter myRef;
+
+    private void setThisRef(Dlg_waiter myRef) {
+        this.myRef = myRef;
+    }
+    private static java.util.Map<Object, Dlg_waiter> dialogContainer = new java.util.HashMap();
+
+    public static void clearUpFirst(java.awt.Window parent) {
+        if (dialogContainer.containsKey(parent)) {
+            dialogContainer.remove(parent);
+        }
+    }
+
+    public static Dlg_waiter create(java.awt.Window parent, boolean modal) {
+
+        if (modal) {
+            return create(parent, ModalityType.APPLICATION_MODAL);
+        }
+
+        return create(parent, ModalityType.MODELESS);
+
+    }
+
+    public static Dlg_waiter create(java.awt.Window parent, java.awt.Dialog.ModalityType modalType) {
+
+        if (parent instanceof java.awt.Frame) {
+
+            Dlg_waiter dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_waiter((java.awt.Frame) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        if (parent instanceof java.awt.Dialog) {
+            Dlg_waiter dialog = dialogContainer.get(parent);
+
+            if (dialog == null) {
+                dialog = new Dlg_waiter((java.awt.Dialog) parent, false);
+                dialog.setModalityType(modalType);
+                dialogContainer.put(parent, dialog);
+                java.util.logging.Logger.getAnonymousLogger().log(Level.INFO, "instances: {0}", dialogContainer.size());
+                dialog.setThisRef(dialog);
+                return dialog;
+            } else {
+                dialog.setModalityType(modalType);
+                return dialog;
+            }
+
+        }
+
+        return null;
+
+    }
+    //</editor-fold>    
+
+    //<editor-fold defaultstate="collapsed" desc=" main ">
+    public static void main(String args[]) {
+
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
+        Dlg_waiter dialog = Dlg_waiter.create(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" added ">
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible == true) {
+            getContentPane().removeAll();
+            initComponents();
+            myInit();
+            repaint();
+        }
+
+
+    }
+
+    public javax.swing.JPanel getSurface() {
+        return (javax.swing.JPanel) getContentPane();
+    }
+
+    public void nullify() {
+        myRef.setVisible(false);
+        myRef = null;
+    }
+    //</editor-fold>
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        pm_po = new javax.swing.JPopupMenu();
+        edit = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        delete = new javax.swing.JMenuItem();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbl_tables = new javax.swing.JTable();
+
+        edit.setText("EDIT");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+        pm_po.add(edit);
+        pm_po.add(jSeparator1);
+
+        delete.setText("DELETE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+        pm_po.add(delete);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(159, 207, 243));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/POS/img2/add32x32.png"))); // NOI18N
+        jButton1.setText("ADD");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        tbl_tables.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "TABLE", "NO."
+            }
+        ));
+        tbl_tables.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tbl_tablesMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbl_tablesMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbl_tables);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        // TODO add your handling code here:
+        do_edit_table();
+    }//GEN-LAST:event_editActionPerformed
+
+    private void tbl_tablesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablesMousePressed
+        // TODO add your handling code here:
+        pm_tbl_users(evt);
+    }//GEN-LAST:event_tbl_tablesMousePressed
+
+    private void tbl_tablesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_tablesMouseReleased
+        // TODO add your handling code here:
+        pm_tbl_users(evt);
+    }//GEN-LAST:event_tbl_tablesMouseReleased
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        do_add_table();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+        do_delete_table();
+    }//GEN-LAST:event_deleteActionPerformed
+    /**
+     * @param args the command line arguments
+     */
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem delete;
+    private javax.swing.JMenuItem edit;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu pm_po;
+    private javax.swing.JTable tbl_tables;
+    // End of variables declaration//GEN-END:variables
+
+    private void myInit() {
+        init_key();
+        init_tbl_baptism();
+        data_employee();
+        init_auto_scroll();
+    }
+
+    private void pm_tbl_users(MouseEvent evt) {
+        if (evt.isPopupTrigger()) {
+            pm_po.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+
+    private void init_auto_scroll() {
+//        tbl_tables.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//        ComponentDragScrollListener l = new ComponentDragScrollListener(tbl_tables);
+//        tbl_tables.addMouseMotionListener(l);
+//        tbl_tables.addMouseListener(l);
+//        tbl_tables.addHierarchyListener(l);
+    }
+
+    public void do_pass() {
+    }
+    // <editor-fold defaultstate="collapsed" desc="Key">
+
+    private void disposed() {
+        this.dispose();
+    }
+
+    private void init_key() {
+        KeyMapping.mapKeyWIFW(getSurface(),
+                KeyEvent.VK_ESCAPE, new KeyAction() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                btn_0.doClick();
+                disposed();
+            }
+        });
+    }
+    // </editor-fold>
+    private ArrayListModel tbl_employee_payroll_ALM;
+    private TblInvoicesModel tbl_employee_payroll_M;
+////    
+
+    private void init_tbl_baptism() {
+        tbl_employee_payroll_ALM = new ArrayListModel();
+        tbl_employee_payroll_M = new TblInvoicesModel(tbl_employee_payroll_ALM);
+
+
+        tbl_tables.setModel(tbl_employee_payroll_M);
+        tbl_tables.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tbl_tables.setRowHeight(25);
+
+//        tbl_tables.setAutoResizeMode(0);
+        int[] tbl_widths_accounts = {200, 0,};
+
+        for (int i = 0, n = tbl_widths_accounts.length; i < n; i++) {
+            if (i == 0) {
+                continue;
+            }
+            TableWidthUtilities.setColumnWidth(tbl_tables, i, tbl_widths_accounts[i]);
+
+//          TableWidthUtilities.
+//          TableWidthUtilities.
+        }
+
+        tbl_tables.getTableHeader().setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+        tbl_tables.setRowHeight(50);
+        tbl_tables.setFont(new java.awt.Font("Arial", Font.BOLD, 12));
+        TableUtility.align_row_to_Center(tbl_tables, 0);
+
+
+
+    }
+
+    private void loadData_baptism(List<S5_tables.to_tables2> acc) {
+        tbl_employee_payroll_ALM.clear();
+        tbl_employee_payroll_ALM.addAll(acc);
+    }
+
+    public static class TblInvoicesModel extends AbstractTableAdapter {
+
+        public static String[] COLUMNS = {
+            "NAME ", "No"
+        };
+
+        public TblInvoicesModel(ListModel listmodel) {
+            super(listmodel, COLUMNS);
+        }
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+//           
+//            if (column == 1) {
+//                return true;
+//            }
+
+            return false;
+        }
+
+        @Override
+        public Class getColumnClass(int col) {
+
+            return Object.class;
+        }
+
+        @Override
+        public Object getValueAt(int row, int col) {
+            S5_tables.to_tables2 tt = (S5_tables.to_tables2) getRow(row);
+
+            switch (col) {
+            case 0:
+                return tt.name;
+
+            default:
+                return tt.no;
+            }
+        }
+    }
+
+    private void data_employee() {
+//        String date = lb_date_baptism.getText();
+
+        loadData_baptism(S5_tables.get_tables(""));
+    }
+
+    private void do_add_table() {
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("");
+        nd.do_pass();
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                add_table(data.name);
+                data_employee();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void add_table(String name) {
+        S5_tables.add(name, 0,"",0,"");
+    }
+
+    private void do_edit_table() {
+
+        int row = tbl_tables.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        final String name = tbl_tables.getModel().getValueAt(row, 0).toString();
+        final String no = tbl_tables.getModel().getValueAt(row, 1).toString();
+        Window p = (Window) this;
+        Dlg_name nd = Dlg_name.create(p, true);
+        nd.setTitle("");
+        nd.do_pass2(name);
+        nd.setCallback(new Dlg_name.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_name.OutputData data) {
+                closeDialog.ok();
+                edit_table(data.name, no);
+                data_employee();
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void edit_table(String name, String no) {
+        S5_tables.edit(name, no, 0,"",0,"");
+    }
+
+    private void do_delete_table() {
+
+        int row = tbl_tables.getSelectedRow();
+        if (row < 0) {
+            return;
+        }
+
+        final String name = tbl_tables.getModel().getValueAt(row, 0).toString();
+        final String no = tbl_tables.getModel().getValueAt(row, 1).toString();
+        Window p = (Window) this;
+        Dlg_confirm nd = Dlg_confirm.create(p, true);
+        nd.setTitle("");
+//        nd.do_pass2(name);
+        nd.setCallback(new Dlg_confirm.Callback() {
+
+            @Override
+            public void ok(CloseDialog closeDialog, Dlg_confirm.Data data) {
+                closeDialog.ok();
+                delete_table(no);
+                data_employee();
+            }
+
+            @Override
+            public void cancel(CloseDialog closeDialog) {
+            }
+        });
+        Center.setCenter(nd);
+
+        nd.setVisible(true);
+    }
+
+    private void delete_table(String no) {
+        S5_tables.delete(no);
+    }
+}
